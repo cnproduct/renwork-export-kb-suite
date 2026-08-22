@@ -1,0 +1,24 @@
+{
+  "name": "renwork-export-kb-suite-monorepo",
+  "version": "3.0.0",
+  "description": "RenWork Export Enterprise AI Knowledge Base Suite V3.0 Monorepo",
+  "private": true,
+  "scripts": {
+    "build:mcp": "cd mcp/export-kb-mcp && npm run build",
+    "build:api": "cd cloud-api && npm run build",
+    "build:all": "npm run build:mcp && npm run build:api",
+    "start:api": "cd cloud-api && npm start",
+    "start:mcp": "cd mcp/export-kb-mcp && npm start",
+    "test": "cd cloud-api && npm test"
+  },
+  "keywords": [
+    "renwork",
+    "export-kb",
+    "b2b",
+    "skills",
+    "mcp",
+    "cloud-api"
+  ],
+  "author": "人人易 AI (Renrenyi AI)",
+  "license": "MIT"
+}

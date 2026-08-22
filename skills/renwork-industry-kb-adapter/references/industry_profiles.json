@@ -1,0 +1,114 @@
+{
+  "total_industries": 12,
+  "framework_version": "3.0.0",
+  "industries": [
+    {
+      "id": "consumer_goods",
+      "name_zh": "1. 消费品、礼品、家居、婴童",
+      "name_en": "Consumer Goods, Gifts, Home & Baby/Kids",
+      "required_fields": ["food_contact_grade", "packaging_drop_test", "color_fastness", "ip_authorization", "carton_marking"],
+      "certifications": ["FDA", "LFGB", "Prop65", "CE", "RoHS", "CPC_CPSIA", "BSCI"],
+      "buying_season": "3-5月秋季圣诞立项, 6-8月大货出港, 10-12月终端销售旺季",
+      "core_painpoints": ["包装破损退货", "印刷色差", "材质环保合规"]
+    },
+    {
+      "id": "food_pharma_chemical",
+      "name_zh": "2. 食品、营养品、化工、医药相关",
+      "name_en": "Food, Nutrition, Chemical & Pharma",
+      "required_fields": ["ingredient_formulation", "coa_msds", "shelf_life", "storage_condition", "restricted_substance_list"],
+      "certifications": ["ISO22000", "HACCP", "GMP", "HALAL", "KOSHER", "REACH", "FDA_Registration"],
+      "buying_season": "全年周期性滚动采购，受原材料产季与期货波动影响",
+      "core_painpoints": ["批次纯度不一致", "微生物重金属残留", "海关准入标签合规"]
+    },
+    {
+      "id": "machinery_industrial",
+      "name_zh": "3. 机械、设备、工业品",
+      "name_en": "Machinery, Equipment & Industrial Goods",
+      "required_fields": ["working_condition", "voltage_frequency", "technical_drawings", "critical_component_brand", "warranty_years"],
+      "certifications": ["CE_MD", "ISO9001", "UL", "CSA", "ATEX"],
+      "buying_season": "采购决策周期3-6个月，重点在样机测试与现场调试协议",
+      "core_painpoints": ["海外售后调试困难", "易损件备件周期长", "电压频率适配"]
+    },
+    {
+      "id": "building_stone_furniture",
+      "name_zh": "4. 建材、石材、家具",
+      "name_en": "Building Materials, Stone & Furniture",
+      "required_fields": ["density_water_absorption", "compressive_strength", "surface_finish", "natural_color_variation", "crating_fumigation"],
+      "certifications": ["CE_CPR", "ASTM", "FSC", "CARB"],
+      "buying_season": "海外春夏建筑施工旺季，提前3-4个月集中备货",
+      "core_painpoints": ["海运运输破损", "天然色差争议", "熏蒸木箱检疫"]
+    },
+    {
+      "id": "electronics_chips",
+      "name_zh": "5. 电子元器件、芯片、模组",
+      "name_en": "Electronic Components & IC Modules",
+      "required_fields": ["package_form", "operating_temperature", "cross_reference_replacement", "pcn_eol_lifecycle", "tape_reel_packing"],
+      "certifications": ["RoHS_2", "REACH", "AEC_Q100_200", "ISO14001", "FCC"],
+      "buying_season": "备货长周期，对批次良品率与供货交期稳定性极度敏感",
+      "core_painpoints": ["假冒翻新料担忧", "停产变更PCN通知", "ESD防静电包装"]
+    },
+    {
+      "id": "textiles_apparel_bags",
+      "name_zh": "6. 纺织、鞋服、箱包",
+      "name_en": "Textiles, Apparel, Footwear & Bags",
+      "required_fields": ["fabric_composition_gsm", "pantone_color_standard", "shrinkage_rate", "preproduction_sample", "factory_audit_score"],
+      "certifications": ["OEKO_TEX_100", "GRS", "WRAP", "SEDEX"],
+      "buying_season": "春夏/秋冬两季订货会模式，提前6-9个月完成打版确认",
+      "core_painpoints": ["对色不准", "水洗缩水变形", "社会责任验厂门槛"]
+    },
+    {
+      "id": "autoparts_newenergy",
+      "name_zh": "7. 汽配、新能源",
+      "name_en": "Automotive Parts & New Energy",
+      "required_fields": ["oe_model_compatibility", "ppap_documentation", "high_low_temp_reliability", "engineering_change_control"],
+      "certifications": ["IATF16949", "E_Mark", "DOT", "UN38_3"],
+      "buying_season": "定点后3-5年稳定供货，认证门槛极高，重视变更预警",
+      "core_painpoints": ["车型年份错配", "PPAP提交不规范", "锂电海运UN38.3危险品合规"]
+    },
+    {
+      "id": "hardware_tools_fasteners",
+      "name_zh": "8. 五金工具与紧固件 (新增)",
+      "name_en": "Hardware, Tools & Fasteners",
+      "required_fields": ["torque_standard", "hardness_hrc", "surface_coating", "salt_spray_hours", "thread_tolerance"],
+      "certifications": ["ISO9001", "DIN_Standard", "ANSI_Standard", "VPA_GS"],
+      "buying_season": "广交会与科隆五金展后集中订货，春夏建筑与修缮旺季",
+      "core_painpoints": ["生锈抗氧化能力差", "热处理硬度不均崩口", "螺纹公差不咬合"]
+    },
+    {
+      "id": "medical_devices_healthcare",
+      "name_zh": "9. 医疗器械与康复护理 (新增)",
+      "name_en": "Medical Devices & Healthcare",
+      "required_fields": ["device_classification", "sterilization_method", "biocompatibility_iso10993", "udi_barcode", "cleanroom_level"],
+      "certifications": ["FDA_510K", "CE_MDR", "ISO13485", "GMP"],
+      "buying_season": "德国MEDICA与阿拉伯医疗展后长期招投标立项",
+      "core_painpoints": ["欧美监管法规升级MDR", "无菌包装破损", "临床评价证据不足"]
+    },
+    {
+      "id": "pet_products_food",
+      "name_zh": "10. 宠物用品与宠物食品 (新增)",
+      "name_en": "Pet Products & Pet Food",
+      "required_fields": ["chew_pull_tensile_test", "non_toxic_material", "crude_protein_moisture", "shelf_life_batch", "retail_card_hangtag"],
+      "certifications": ["FDA_Pet_Food", "USDA_Organic", "AAFCO", "CE", "BSCI"],
+      "buying_season": "Global Pet Expo与Interzoo展后集中采购",
+      "core_painpoints": ["误食窒息小部件", "宠物咬烂撕裂客诉", "天然无添加保鲜期短"]
+    },
+    {
+      "id": "beauty_cosmetics_eyelash",
+      "name_zh": "11. 美妆个护与假睫毛/美甲 (新增)",
+      "name_en": "Beauty, Personal Care & Cosmetics",
+      "required_fields": ["cpsr_safety_assessment", "preservative_microbiology", "vegan_cruelty_free", "heavy_metal_test", "batch_traceability"],
+      "certifications": ["FDA_MoCRA", "EU_CPNP", "ISO22716_GMPC", "Cruelty_Free"],
+      "buying_season": "博洛尼亚展会后，欧美黑五与圣诞节日礼盒采购备货季",
+      "core_painpoints": ["胶水过敏投诉", "膏体分层变质", "欧美MoCRA合规建档"]
+    },
+    {
+      "id": "outdoor_sports_cycling",
+      "name_zh": "12. 户外运动、骑行与水上运动 (新增)",
+      "name_en": "Outdoor, Sports & Cycling",
+      "required_fields": ["waterproof_hydrostatic_head", "uv_protection_upf", "load_bearing_capacity", "carbon_fiber_alloy_grade", "impact_drop_test"],
+      "certifications": ["CPSC_Helmet", "EN1078", "CE_EN13613", "ISO4210"],
+      "buying_season": "春夏季欧美户外运动大季，提前6个月秋冬集中下单",
+      "core_painpoints": ["防水透气涂层脱落", "骑行车架疲劳断裂", "充气类漏气与密封性"]
+    }
+  ]
+}

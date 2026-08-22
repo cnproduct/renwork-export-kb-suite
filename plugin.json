@@ -1,0 +1,37 @@
+{
+  "name": "renwork-export-kb-suite",
+  "version": "3.0.0",
+  "description": "RenWork 外贸出口企业 AI 知识库标准体系插件 (V3.0)：涵盖 00–20 模块知识中台构建、8类客户资产与关系图谱、100分动态客户优先级模型、8类动态跟进名单、6岗位视图、询盘10步速检、阶梯报价与防幻觉质量审计。",
+  "author": {
+    "name": "人人易 AI (Renrenyi AI)",
+    "email": "support@rrenn.com",
+    "website": "https://rrenn.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/cnproduct/renwork-export-kb-suite",
+  "keywords": [
+    "renwork",
+    "export-kb",
+    "b2b-export",
+    "knowledge-base-v3",
+    "customer-asset-360",
+    "dynamic-scoring",
+    "sales-execution",
+    "mcp-server",
+    "cloud-api",
+    "six-role-views"
+  ],
+  "mcp_servers": {
+    "export-kb-mcp": {
+      "command": "node",
+      "args": ["mcp/export-kb-mcp/dist/index.js"]
+    }
+  },
+  "skills": [
+    "skills/renwork-export-kb-orchestrator",
+    "skills/renwork-customer-asset-intelligence",
+    "skills/renwork-export-sales-execution",
+    "skills/renwork-industry-kb-adapter",
+    "skills/renwork-kb-governance-auditor"
+  ]
+}

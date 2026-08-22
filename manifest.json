@@ -1,0 +1,43 @@
+{
+  "manifest_version": "1.0.0",
+  "name": "renwork-export-kb-suite",
+  "version": "3.0.0",
+  "description": "RenWork Export Enterprise AI Knowledge Base Suite V3.0",
+  "author": "人人易 AI (Renrenyi AI)",
+  "skills": [
+    {
+      "name": "renwork-export-kb-orchestrator",
+      "path": "skills/renwork-export-kb-orchestrator"
+    },
+    {
+      "name": "renwork-customer-asset-intelligence",
+      "path": "skills/renwork-customer-asset-intelligence"
+    },
+    {
+      "name": "renwork-export-sales-execution",
+      "path": "skills/renwork-export-sales-execution"
+    },
+    {
+      "name": "renwork-industry-kb-adapter",
+      "path": "skills/renwork-industry-kb-adapter"
+    },
+    {
+      "name": "renwork-kb-governance-auditor",
+      "path": "skills/renwork-kb-governance-auditor"
+    }
+  ],
+  "mcp_servers": [
+    {
+      "name": "export-kb-mcp",
+      "entry": "mcp/export-kb-mcp/dist/index.js",
+      "runtime": "node"
+    }
+  ],
+  "cloud_api": {
+    "entry": "cloud-api/dist/server.js",
+    "default_port": 8080
+  },
+  "portal": {
+    "entry": "portal/index.html"
+  }
+}

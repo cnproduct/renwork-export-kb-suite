@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RenWorkSalesPlaybookSchemaV3",
+  "description": "JSON Schemas for Inquiry Qualification, Quotations, Objections and Escalations",
+  "type": "object",
+  "definitions": {
+    "InquiryDiagnosis": {
+      "type": "object",
+      "required": ["qualification_status", "inquiry_score", "next_actions", "recommended_questions"],
+      "properties": {
+        "qualification_status": { "type": "string", "enum": ["Go", "Nurture", "Hold", "No-go"] },
+        "inquiry_score": { "type": "number" },
+        "detected_parameters": {
+          "type": "object",
+          "properties": {
+            "country": { "type": "string" },
+            "buyer_channel": { "type": "string" },
+            "target_sku": { "type": "string" },
+            "customization_depth": { "type": "string" },
+            "quantity": { "type": "number" },
+            "incoterms": { "type": "string" }
+          }
+        },
+        "next_actions": { "type": "array", "items": { "type": "string" } },
+        "recommended_questions": { "type": "array", "items": { "type": "string" } },
+        "escalation_flags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ObjectionResponse": {
+      "type": "object",
+      "required": ["objection_category", "intensity_level", "root_cause_hypothesis", "response_strategy", "response_scripts", "escalation_required"],
+      "properties": {
+        "objection_category": {
+          "type": "string",
+          "enum": [
+            "price_high",
+            "moq_high",
+            "lead_time_long",
+            "certification_missing",
+            "credit_payment_oa",
+            "free_sample_demand",
+            "exclusive_agency",
+            "tooling_cost",
+            "quality_concern",
+            "existing_supplier"
+          ]
+        },
+        "intensity_level": { "type": "string", "enum": ["mild", "medium", "strong"] },
+        "root_cause_hypothesis": { "type": "string" },
+        "response_strategy": { "type": "string" },
+        "response_scripts": {
+          "type": "object",
+          "properties": {
+            "zh": { "type": "string" },
+            "en": { "type": "string" }
+          }
+        },
+        "trade_off_options": { "type": "array", "items": { "type": "string" } },
+        "escalation_required": { "type": "boolean" },
+        "escalation_reason": { "type": "string" }
+      }
+    }
+  }
+}
