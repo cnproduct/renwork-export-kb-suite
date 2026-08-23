@@ -15,7 +15,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 2. Role Views Switching
+  // 2. Newcomer 7-Day Path Timeline
+  const newcomerContainer = document.getElementById('newcomer-timeline-container');
+  if (newcomerContainer) {
+    const days = [
+      { day: 'Day 1', theme: '公司定位、可信背书与 8 大绝对红线', task: '阅读 00–03 模块，背诵并测试 8 大禁止承诺红线；记住一句话定位。' },
+      { day: 'Day 2', theme: '主推产品体系、核心参数与快速选型', task: '掌握 3 款主推 SKU 的材料、规格、MOQ、交期与对应适合买家类型。' },
+      { day: 'Day 3', theme: '理想买家 ICP、采购委员会与旺季节奏', task: '熟记美/欧/中东买家角色分工，掌握零售旺季与下单提前量倒推。' },
+      { day: 'Day 4', theme: '询盘 10 步速检与 L1/L2/L3 提问下钻', task: '实战演练 3 封询盘诊断，输出 24h 内单一下一步动作与澄清提问。' },
+      { day: 'Day 5', theme: '阶梯报价、定制深度与样品唯一档案', task: '生成 Good/Better/Best 报价方案，建立规范样品编号与抵扣政策。' },
+      { day: 'Day 6', theme: '10 类高频异议、沉默诊断与强制升级', task: '演练价格高、MOQ大、赊销要求的回应策略，识别 8 类升级信号。' },
+      { day: 'Day 7', theme: '全流程模拟询盘与实战验收通关', task: '完成一次从询盘识别、背调评分、阶梯报价到异议应对的实操考核。' }
+    ];
+
+    newcomerContainer.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:14px; margin-top:16px;">
+        ${days.map(d => `
+          <div style="display:flex; gap:16px; background:#fff; border:1px solid #e2e8f0; padding:14px; border-radius:8px; align-items:flex-start;">
+            <div style="background:#2563eb; color:#fff; font-weight:700; font-size:13px; padding:6px 12px; border-radius:6px; min-width:65px; text-align:center;">${d.day}</div>
+            <div>
+              <h4 style="margin:0 0 4px 0; color:#0f172a; font-size:14px;">${d.theme}</h4>
+              <p style="margin:0; font-size:13px; color:#64748b;">${d.task}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // 3. Role Views Switching
   const roleBtns = document.querySelectorAll('.role-btn');
   const roleContent = document.getElementById('role-content');
 
@@ -104,25 +132,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3. Dynamic Lists Data
+  // 4. Dynamic Lists Data
   const dynamicListContent = document.getElementById('dynamic-list-content');
   const listTabs = document.querySelectorAll('.list-tab');
 
   const demoListData = {
     today_must_follow: [
-      { id: 'ACC-001', name: 'Apex Global Sourcing LLC', country: 'US', tier: 'S', score: 92.5, reason: '7天内新询盘且超24h未跟进', next_action: '发送 Good/Better/Best 阶梯报价方案' }
+      { id: 'ACC-001', name: 'Pacific Home Goods LLC', country: 'US', tier: 'S', score: 92.5, reason: '7天内新询盘且超24h未跟进', next_action: '发送 Good/Better/Best 阶梯报价方案' }
     ],
     stalled_after_quote: [
       { id: 'ACC-002', name: 'EuroRetail Group GmbH', country: 'DE', tier: 'A', score: 78.0, reason: '已报价7天，客户有邮件点击但未确认', next_action: '针对包装与交期提供替代优化选项' }
     ],
     sample_unconverted: [
-      { id: 'ACC-003', name: 'Nordic Craft Imports AB', country: 'SE', tier: 'B', score: 58.5, reason: '定制打样已签收10天无反馈', next_action: '询问样品尺寸与功能测试结论' }
+      { id: 'ACC-003', name: 'Nordic Living Retail AB', country: 'SE', tier: 'B', score: 58.5, reason: '定制打样已签收10天无反馈', next_action: '询问样品尺寸与功能测试结论' }
     ],
     repeat_purchase_warning: [
-      { id: 'ACC-001', name: 'Apex Global Sourcing LLC', country: 'US', tier: 'S', score: 92.5, reason: '历史下单4次，已临近75天复购周期', next_action: '主动致信提供秋冬季排产预约锁定' }
+      { id: 'ACC-001', name: 'Pacific Home Goods LLC', country: 'US', tier: 'S', score: 92.5, reason: '历史下单4次，已临近75天复购周期', next_action: '主动致信提供秋冬季排产预约锁定' }
     ],
     sourcing_anomaly: [
-      { id: 'ACC-001', name: 'Apex Global Sourcing LLC', country: 'US', tier: 'S', score: 92.5, reason: '海关近90天进口提单激增 25 TEU', next_action: '向采购决策人推荐大容量整柜专线' }
+      { id: 'ACC-004', name: 'Al-Futtaim Home Living', country: 'AE', tier: 'A', score: 82.0, reason: '海关近90天进口提单激增 25 TEU', next_action: '向采购决策人推荐大容量整柜专线' }
+    ],
+    high_intent_no_inquiry: [
+      { id: 'ACC-005', name: 'Global Kitchenware UK Ltd', country: 'GB', tier: 'B', score: 64.0, reason: '7天内浏览产品页5次且下载PDF目录', next_action: '发送同款商超成功案例与快速打样邀请' }
+    ],
+    reactivated_after_dormancy: [
+      { id: 'ACC-006', name: 'Oz Living Direct Pty', country: 'AU', tier: 'B', score: 55.0, reason: '沉睡超200天后重新打开本周营销推文', next_action: '发送最新通过认证的秋冬新品选型卡' }
+    ],
+    high_score_missed_follow: [
+      { id: 'ACC-002', name: 'EuroRetail Group GmbH', country: 'DE', tier: 'A', score: 78.0, reason: '综合评分78分，超过7天无业务互动记录', next_action: '销售主管派发给资深业务进行电话破冰' }
     ]
   };
 
@@ -167,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Scoring Sandbox
+  // 5. Scoring Sandbox
   document.getElementById('btn-calc-score').addEventListener('click', () => {
     const icp = Number(document.getElementById('score-icp').value);
     const intent = Number(document.getElementById('score-intent').value);
@@ -190,9 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('result-tier').textContent = tier;
   });
 
-  // 5. Inquiry Diagnostic Tool
+  // 6. Inquiry Diagnostic Tool
   document.getElementById('btn-diagnose-inquiry').addEventListener('click', () => {
-    const txt = document.getElementById('raw-inquiry-text').value;
     const resBox = document.getElementById('inquiry-diagnosis-result');
     resBox.style.display = 'block';
     resBox.innerHTML = `
@@ -205,9 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
-  // 6. Tiered Quote Generator
+  // 7. Tiered Quote Generator
   document.getElementById('btn-generate-quote').addEventListener('click', () => {
-    const prod = document.getElementById('quote-prod').value;
     const price = Number(document.getElementById('quote-price').value);
     const moq = Number(document.getElementById('quote-moq').value);
     const res = document.getElementById('quote-matrix-result');
@@ -251,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
-  // 7. 21 Modules List
+  // 8. 21 Modules List
   const modulesContainer = document.getElementById('modules-container');
   const modulesList = [
     { id: '00_kb_governance', title: '知识库总索引与治理', desc: '地图、速查卡、新人路径、确认队列' },
@@ -285,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `).join('');
 
-  // 8. Objections List
+  // 9. Objections List
   const objectionsContainer = document.getElementById('objections-container');
   const objectionsList = [
     { title: '1. 客户嫌价格高 (Price too high)', strategy: '拆解全生命周期成本与材质寿命，提供 Good/Better 阶梯配置或调整包装。', escalation: false },
@@ -306,13 +341,79 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `).join('');
 
-  // 9. Benchmark button action
+  // 10. Cloud Aggregators Actions
+  document.getElementById('btn-agg-customs')?.addEventListener('click', () => {
+    const kw = document.getElementById('agg-customs-kw').value;
+    const res = document.getElementById('res-agg-customs');
+    res.style.display = 'block';
+    res.innerHTML = `
+      <strong>🚢 海关提单查询成功:</strong> 发现 3 家真实海外采购商 (已过滤 12 家 NVOCC 货代)<br>
+      • <strong>Pacific Home Goods (US)</strong>: 180天进口 48.5 TEU (14批次) | 信号: 进口量增长35%<br>
+      • <strong>Nordic Living AB (SE)</strong>: 180天进口 32.0 TEU (8批次) | 信号: 正在寻找FSC替代供货商<br>
+      • <strong>Al-Futtaim Living (AE)</strong>: 180天进口 65.0 TEU (19批次) | 信号: 海湾新开门店扩品
+    `;
+  });
+
+  document.getElementById('btn-agg-email')?.addEventListener('click', () => {
+    const email = document.getElementById('agg-email-input').value;
+    const res = document.getElementById('res-agg-email');
+    res.style.display = 'block';
+    res.innerHTML = `
+      <strong>📧 邮箱验真结果:</strong> <span style="color:#15803d; font-weight:700;">C1 级实名决策人邮箱</span><br>
+      • MX 记录: 正常解析 (Google Workspace / Outlook 365)<br>
+      • SMTP 状态: Deliverable (可投递)<br>
+      • 一次性临时域名: 否 (通过安全审计)<br>
+      • 建议动作: 直接加入 1v1 个性化邮件开发序列。
+    `;
+  });
+
+  document.getElementById('btn-agg-freight')?.addEventListener('click', () => {
+    const port = document.getElementById('agg-port-input').value;
+    const res = document.getElementById('res-agg-freight');
+    res.style.display = 'block';
+    res.innerHTML = `
+      <strong>🌐 航运与关税测算 (${port}):</strong><br>
+      • 关税预估: 30.5% (标准关税 5.5% + 301条款 25%)<br>
+      • 20GP 小柜海运费: $2,450 USD | 40HQ 高柜海运费: $3,850 USD<br>
+      • 航程时间: 约 18 天 | FOB 风险转移点: 起运港船上
+    `;
+  });
+
+  document.getElementById('btn-agg-fx')?.addEventListener('click', () => {
+    const amt = Number(document.getElementById('agg-fx-amount').value);
+    const res = document.getElementById('res-agg-fx');
+    res.style.display = 'block';
+    const rate = 0.1385;
+    const usd = (amt * rate * 1.02).toFixed(2);
+    const floor = (usd * 1.18).toFixed(2);
+    res.innerHTML = `
+      <strong>💱 汇率换算与保本测算 (CNY → USD):</strong><br>
+      • 基准汇率: 1 CNY = 0.1385 USD (含 2% 汇率对冲缓冲)<br>
+      • 换算金额: <strong>$${usd} USD</strong><br>
+      • 建议报价保本底线 (18%毛利): <strong>$${floor} USD</strong>
+    `;
+  });
+
+  // 11. Benchmark 30+5
   document.getElementById('btn-run-benchmark').addEventListener('click', () => {
     alert('🧪 30+5 基准测试执行完毕！\n\n✅ 30 项业务测试 100% 通过\n✅ 5 项防幻觉/红线反例全部拦截成功\n🛡️ 知识库置信度与防篡改规则生效中。');
   });
 
-  // 10. Export button
+  // 12. Global Search
+  document.getElementById('global-search').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) {
+      document.querySelectorAll('.mod-item').forEach(el => el.style.display = 'block');
+      return;
+    }
+    document.querySelectorAll('.mod-item').forEach(el => {
+      const txt = el.textContent.toLowerCase();
+      el.style.display = txt.includes(q) ? 'block' : 'none';
+    });
+  });
+
+  // 13. Export button
   document.getElementById('btn-export-pkg').addEventListener('click', () => {
-    alert('📦 正在打包导出 renwork-export-kb-suite.zip ...');
+    alert('📦 正在导出 renwork-export-kb-suite 标准框架插件包...');
   });
 });

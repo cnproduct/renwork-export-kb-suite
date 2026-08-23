@@ -22,6 +22,7 @@
       <nav class="nav-menu">
         <div class="nav-section-title">知识库中台</div>
         <button class="nav-item active" data-tab="cheat-sheet">⚡ 业务速查卡 (Cheat Sheet)</button>
+        <button class="nav-item" data-tab="newcomer-path">🌱 新人 7 天学习路径</button>
         <button class="nav-item" data-tab="role-views">👥 六大岗位专属视图</button>
         <button class="nav-item" data-tab="modules-21">📚 21 个标准模块总览</button>
 
@@ -33,12 +34,15 @@
         <button class="nav-item" data-tab="inquiry-qualifier">🔍 询盘 10 步速检</button>
         <button class="nav-item" data-tab="tiered-quote">📊 Good/Better/Best 报价</button>
         <button class="nav-item" data-tab="objections">🛡️ 10 类异议与升级红线</button>
+
+        <div class="nav-section-title">云端聚合工具</div>
+        <button class="nav-item" data-tab="cloud-aggregators">☁️ Cloud API 聚合工具群</button>
       </nav>
 
       <div class="sidebar-footer">
         <div class="status-indicator">
           <span class="dot"></span>
-          <span>Cloud API: Online</span>
+          <span>Cloud API: Online (Port 8080)</span>
         </div>
         <p class="tenant-name">人人易智造 (Renrenyi)</p>
       </div>
@@ -48,7 +52,7 @@
     <main class="main-content">
       <header class="top-header">
         <div class="search-bar">
-          <input type="text" id="global-search" placeholder="全局检索知识卡 (如: MOQ, 认证, 异议, 美线, 阶梯价)...">
+          <input type="text" id="global-search" placeholder="全局检索 00-20 模块知识卡 (如: MOQ, 认证, 异议, 美线, 阶梯价)...">
         </div>
         <div class="header-actions">
           <button class="btn btn-outline" id="btn-run-benchmark">🧪 运行 30+5 基准测试</button>
@@ -120,6 +124,17 @@
           </div>
         </section>
 
+        <!-- Tab: Newcomer 7-Day Path -->
+        <section id="tab-newcomer-path" class="tab-pane">
+          <div class="card">
+            <h2>🌱 外贸新人 7 天学习与实战路径 (Newcomer 7-Day Onboarding)</h2>
+            <p class="lead-text">每天一个核心知识主题 + 一项实战输出，拒绝无效死记硬背，快速形成实战出单能力。</p>
+            <div class="path-timeline" id="newcomer-timeline-container">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </section>
+
         <!-- Tab 2: Role Views -->
         <section id="tab-role-views" class="tab-pane">
           <div class="role-selector">
@@ -146,6 +161,9 @@
               <button class="list-tab" data-list="sample_unconverted">🧪 样品未转单 (1)</button>
               <button class="list-tab" data-list="repeat_purchase_warning">🔄 复购预警 (1)</button>
               <button class="list-tab" data-list="sourcing_anomaly">⚡ 采购异动 (1)</button>
+              <button class="list-tab" data-list="high_intent_no_inquiry">👀 高互动未询盘 (1)</button>
+              <button class="list-tab" data-list="reactivated_after_dormancy">✨ 沉睡重活跃 (1)</button>
+              <button class="list-tab" data-list="high_score_missed_follow">⚠️ 高分漏跟进 (1)</button>
             </div>
             <div id="dynamic-list-content" style="margin-top:16px;">
               <!-- Dynamic Table injected via JS -->
@@ -282,6 +300,60 @@
             <h2>🛡️ 十类高频异议应对与 8 大升级红线</h2>
             <div class="objections-accordion" id="objections-container">
               <!-- Injected by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 9: Cloud Aggregators -->
+        <section id="tab-cloud-aggregators" class="tab-pane">
+          <div class="card">
+            <h2>☁️ Cloud API 聚合工具实战面板 (6 大云连接器)</h2>
+            <p class="lead-text">集成海关提单穿透、OKKI CRM 数据同步、官网事实抽取、采购决策人邮箱验真、关税与海运费估算、实时多币种换算。</p>
+            
+            <div class="aggregator-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
+              <!-- Tool 1: Customs -->
+              <div class="card" style="border:1px solid #e2e8f0;">
+                <h4>🚢 海关提单与真实买家穿透</h4>
+                <p style="font-size:12px; color:#64748b;">自动过滤货代，穿透真实采购商与近180天进口柜量。</p>
+                <div class="form-group" style="margin-top:10px;">
+                  <input type="text" id="agg-customs-kw" placeholder="品类关键词 (如: ceramic tableware)" value="ceramic tableware">
+                </div>
+                <button class="btn btn-outline" id="btn-agg-customs">查询海关买家</button>
+                <div id="res-agg-customs" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
+              </div>
+
+              <!-- Tool 2: Email Verify -->
+              <div class="card" style="border:1px solid #e2e8f0;">
+                <h4>📧 决策人邮箱验真与 C1/C2 分级</h4>
+                <p style="font-size:12px; color:#64748b;">检测 MX 记录、一次性域名与是否决策人实名邮箱。</p>
+                <div class="form-group" style="margin-top:10px;">
+                  <input type="text" id="agg-email-input" placeholder="邮箱 (如: david.chen@pacificgoods.com)" value="david.chen@pacificgoods.com">
+                </div>
+                <button class="btn btn-outline" id="btn-agg-email">验真决策人邮箱</button>
+                <div id="res-agg-email" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
+              </div>
+
+              <!-- Tool 3: Tariff & Freight -->
+              <div class="card" style="border:1px solid #e2e8f0;">
+                <h4>🌐 关税税率与海运费估算</h4>
+                <p style="font-size:12px; color:#64748b;">按目标港口、HS 编码测算关税与 20GP/40HQ 运费。</p>
+                <div class="form-group" style="margin-top:10px;">
+                  <input type="text" id="agg-port-input" placeholder="目的港" value="Los Angeles, USA">
+                </div>
+                <button class="btn btn-outline" id="btn-agg-freight">测算关税与运费</button>
+                <div id="res-agg-freight" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
+              </div>
+
+              <!-- Tool 4: FX Converter -->
+              <div class="card" style="border:1px solid #e2e8f0;">
+                <h4>💱 实时汇率换算与毛利保本</h4>
+                <p style="font-size:12px; color:#64748b;">多币种汇率换算，加入 2% 对冲缓冲与保本底价。</p>
+                <div class="form-group" style="margin-top:10px;">
+                  <input type="number" id="agg-fx-amount" placeholder="金额 (CNY)" value="100000">
+                </div>
+                <button class="btn btn-outline" id="btn-agg-fx">换算为 USD 及保本测算</button>
+                <div id="res-agg-fx" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
+              </div>
             </div>
           </div>
         </section>

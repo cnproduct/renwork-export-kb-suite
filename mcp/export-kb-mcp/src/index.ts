@@ -9,10 +9,12 @@ import {
 import { KnowledgeBaseEngine } from './kbEngine.js';
 import { CustomerAssetEngine } from './customerEngine.js';
 import { SalesExecutionEngine } from './salesEngine.js';
+import { AggregatorEngine } from './aggregatorEngine.js';
 
 const kbEngine = new KnowledgeBaseEngine();
 const customerEngine = new CustomerAssetEngine();
 const salesEngine = new SalesExecutionEngine();
+const aggregatorEngine = new AggregatorEngine();
 
 const server = new Server(
   {
@@ -173,6 +175,68 @@ const TOOLS: Tool[] = [
       },
       required: ['tenant_id']
     }
+  },
+  {
+    name: 'aggregator_customs_search',
+    description: '海关提单与真实买家穿透查询（自动剔除 NVOCC 货代，分析进口柜量与供应链异动）',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        keyword: { type: 'string', description: '品类或产品关键词' },
+        hs_code: { type: 'string', description: 'HS海关编码' },
+        destination_country: { type: 'string', description: '目标国家 (如 US, DE, AE)' },
+        min_teu: { type: 'number', description: '最小TEU柜量' }
+      }
+    }
+  },
+  {
+    name: 'aggregator_email_verify',
+    description: 'B2B 采购决策人邮箱验真与 C1/C2/C0 置信度分级',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        email: { type: 'string', description: '待验真邮箱' }
+      },
+      required: ['email']
+    }
+  },
+  {
+    name: 'aggregator_freight_tariff_estimate',
+    description: '全球关税税率、海运集装箱运费预估与 Incoterms 风险责任划分',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        origin_port: { type: 'string', description: '起运港' },
+        destination_port: { type: 'string', description: '目的港' },
+        hs_code: { type: 'string', description: '海关HS编码' },
+        incoterm: { type: 'string', description: '贸易条款 (EXW, FOB, CIF, DDP)' }
+      }
+    }
+  },
+  {
+    name: 'aggregator_fx_convert',
+    description: '多币种实时汇率换算与汇率波动对冲毛利保本测算',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        amount: { type: 'number', description: '基准金额' },
+        base_currency: { type: 'string', description: '原币种 (USD, CNY, EUR等)' },
+        target_currency: { type: 'string', description: '目标币种' },
+        hedge_buffer_percentage: { type: 'number', description: '汇率对冲缓冲比率 (默认2%)' }
+      },
+      required: ['amount', 'base_currency', 'target_currency']
+    }
+  },
+  {
+    name: 'kb_run_benchmark_tests',
+    description: '运行外贸知识库 30 个典型业务问答 + 5 个拒绝猜测反例基准测试',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        tenant_id: { type: 'string', description: '企业租户ID' }
+      },
+      required: ['tenant_id']
+    }
   }
 ];
 
@@ -237,6 +301,26 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
       case 'kb_audit_governance': {
         const res = kbEngine.auditGovernance(a.tenant_id);
+        return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
+      }
+      case 'aggregator_customs_search': {
+        const res = aggregatorEngine.searchCustoms(a);
+        return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
+      }
+      case 'aggregator_email_verify': {
+        const res = aggregatorEngine.verifyEmail(a);
+        return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
+      }
+      case 'aggregator_freight_tariff_estimate': {
+        const res = aggregatorEngine.estimateTradeAndFreight(a);
+        return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
+      }
+      case 'aggregator_fx_convert': {
+        const res = aggregatorEngine.convertFx(a);
+        return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
+      }
+      case 'kb_run_benchmark_tests': {
+        const res = aggregatorEngine.runBenchmarkTests(a.tenant_id || 'company_default');
         return { content: [{ type: 'text', text: JSON.stringify(res, null, 2) }] };
       }
       default:
