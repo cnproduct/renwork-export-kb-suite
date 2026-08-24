@@ -18,7 +18,7 @@
     "test": "npm run build && node --test dist/core.test.js"
   },
   "dependencies": {
-    "zod": "^3.24.2"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20.17.0",
