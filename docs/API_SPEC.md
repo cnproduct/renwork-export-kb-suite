@@ -1,119 +1,46 @@
-# RenWork Export Enterprise AI Knowledge Base Cloud API 接口规范 (V3.0)
+# Cloud API V4
 
-## 1. 基础配置
-- **协议**: HTTP / JSON
-- **默认端口**: `8080`
-- **基础路径**: `/api/v1`
-- **健康检查**: `GET /healthz`
-- **OpenAPI 规范**: `GET /openapi.json`
+Base URL：`http://localhost:8080`。除健康检查和 OpenAPI 外，所有 `/api/v1/*` 请求需要：
 
----
-
-## 2. 核心端点
-
-### 2.1 知识库管理 (Knowledge Base)
-
-#### `POST /api/v1/kb/cold-start`
-冷启动初始化 00–20 模块知识库。
-- **Request Body**:
-```json
-{
-  "tenant_id": "company_001",
-  "company_name": "厦门圣元环保",
-  "website_url": "https://example.com",
-  "profile_summary": "专业出口牛磺酸与保健品源头企业",
-  "industry": "food_pharma_chemical"
-}
+```http
+Authorization: Bearer <tenant-bound-key>
 ```
-- **Response**:
+
+## 端点
+
+| Method | Path | 作用 |
+|---|---|---|
+| GET | `/health/live` | 进程存活 |
+| GET | `/health/ready` | 鉴权、存储模式与能力状态 |
+| GET | `/openapi.json` | OpenAPI 3.1 |
+| POST | `/api/v1/kb/cold-start` | 生成 00–20 模块未批准骨架 |
+| POST | `/api/v1/kb/search` | 当前租户知识检索 |
+| GET | `/api/v1/kb/cards/:cardId` | 当前租户单卡读取 |
+| GET | `/api/v1/kb/audit` | 状态、敏感级、公开闸门、缺口和过期审计 |
+| POST | `/api/v1/customers/score` | 可解释评分、硬停止和动态名单 |
+| POST | `/api/v1/sales/qualify` | 询盘 10 维速检 |
+| POST | `/api/v1/sales/quote` | 条件报价草稿 |
+| POST | `/api/v1/sales/aftersales-triage` | P1/P2/P3 分级 |
+| GET | `/api/v1/capabilities` | 连接器能力清单 |
+| POST | `/api/v1/providers/email-syntax` | 仅语法邮箱检查 |
+| POST | `/api/v1/providers/:provider` | 未配置实时能力返回 501 |
+| GET/POST | `/api/v1/audit/benchmark` | 35 例基准真实执行状态 |
+
+## 错误合同
+
 ```json
 {
-  "success": true,
-  "data": {
-    "tenantId": "company_001",
-    "modulesCreated": 21,
-    "cardsCount": 21,
-    "cheatSheet": { ... },
-    "gapConfirmationQueue": [ ... ]
-  }
+  "error": { "code": "invalid_request", "message": "field: reason" },
+  "request_id": "uuid"
 }
 ```
 
-#### `POST /api/v1/kb/query`
-结构化与语义知识检索。
-- **Request Body**:
-```json
-{
-  "query": "MOQ",
-  "tenant_id": "company_001",
-  "module": "07_commercial_delivery",
-  "role_view": "junior_sales",
-  "sensitivity": "public"
-}
-```
+- `400 invalid_request`：Schema 校验失败。
+- `401 unauthorized`：Key 缺失或无效。
+- `404 not_found/unknown_capability`：资源或能力不存在。
+- `501 capability_unavailable`：能力存在但未配置真实提供商。
+- `500 internal_error`：不泄露内部堆栈；使用 `request_id` 排查。
 
----
+## 冷启动边界
 
-### 2.2 客户资产与评分 (Customer Asset Intelligence)
-
-#### `POST /api/v1/customers/score`
-计算 100 分动态客户优先级与 S/A/B/C/D 分层。
-- **Request Body**:
-```json
-{
-  "account": {
-    "account_id": "ACC-001",
-    "standard_name": "Apex Global Sourcing",
-    "domain": "apex.com",
-    "icp_fit_level": "A+",
-    "total_revenue_usd": 150000,
-    "historical_orders_count": 3
-  },
-  "interactions": [
-    { "signal_type": "inquiry", "signal_strength": "strong" }
-  ]
-}
-```
-- **Response**:
-```json
-{
-  "success": true,
-  "data": {
-    "priority_score": 92.5,
-    "tier": "S",
-    "score_breakdown": {
-      "intent": 25,
-      "fit": 20,
-      "power": 18,
-      "stage": 15,
-      "value": 10,
-      "quality": 5,
-      "risk_penalty": 0
-    },
-    "dynamic_lists": ["today_must_follow", "repeat_purchase_warning"]
-  }
-}
-```
-
-#### `GET /api/v1/customers/dynamic-lists/:tenant_id`
-获取 8 类动态跟进名单。
-
----
-
-### 2.3 销售实战推进 (Sales Execution)
-
-#### `POST /api/v1/sales/qualify`
-询盘 10 步速检与 L1/L2/L3 提问下钻。
-
-#### `POST /api/v1/sales/quote`
-生成 Good / Better / Best 三档阶梯报价与样品政策。
-
-#### `POST /api/v1/sales/objection`
-匹配 10 类异议应答策略与 8 大升级红线。
-
----
-
-### 2.4 治理与基准测试 (Governance & Benchmark)
-
-#### `POST /api/v1/audit/benchmark`
-执行 30 个典型外贸业务问答 + 5 个防幻觉反例基准测试。
+`cold-start` 只基于用户提交内容建立模块骨架。响应中的 `collection_performed=false` 明确表示没有自动抓取官网；任何官网采集必须由独立、可审计、遵守 robots 与 SSRF 防护的连接器完成。

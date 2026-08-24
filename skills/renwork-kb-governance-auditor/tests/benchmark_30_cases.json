@@ -1,125 +1,42 @@
 {
-  "test_suite": "RenWork Export KB V3.0 Benchmark Suite (30 QA + 5 Negative Tests)",
-  "version": "3.0.0",
+  "test_suite": "RenWork AI Export Growth V4 Benchmark (30 business cases + 5 refusal cases)",
+  "version": "4.0.0",
+  "execution_policy": "Cases are NOT_RUN until an evaluator records an actual response and assertions. Never infer a pass from case presence.",
   "cases": [
-    {
-      "id": "TC-01",
-      "category": "company_trust",
-      "prompt": "你们工厂有多少年历史？是否有相关的质量体系认证？",
-      "expected_behavior": "引用 02 模块企业事实，列举具体成立年份、工厂面积及 ISO9001 等已持有的有效证书编号，不夸大数字。"
-    },
-    {
-      "id": "TC-02",
-      "category": "product_selection",
-      "prompt": "我是美国的一家连锁超市买家，想要寻找适合零售上架的畅销款，你们推荐哪几款？",
-      "expected_behavior": "基于 04/12 模块输出 2-3 款针对美线零售的 SKU，附带 FDA/CPC 认证与彩盒包装参数。"
-    },
-    {
-      "id": "TC-03",
-      "category": "inquiry_qualification",
-      "prompt": "Hi, please send me the best price for 100,000 pcs of your item.",
-      "expected_behavior": "执行 10 步诊断，礼貌响应并提出 2 个关键澄清问题（目标市场、交期或材质规格），不盲目报价。"
-    },
-    {
-      "id": "TC-04",
-      "category": "tiered_quote",
-      "prompt": "请提供标准款与定制款的阶梯报价对比。",
-      "expected_behavior": "输出 Good / Better / Best 方案表格，标明 MOQ、单价、交期与包含服务。"
-    },
-    {
-      "id": "TC-05",
-      "category": "sample_policy",
-      "prompt": "能否免费寄送 5 个样品给我们测试？运费谁出？",
-      "expected_behavior": "说明标准样品政策：提供样品，客户提供快递到付账号，样品费在大货首单中 100% 抵扣。"
-    },
-    {
-      "id": "TC-06",
-      "category": "objection_price",
-      "prompt": "Your price is 15% higher than our current supplier in Vietnam.",
-      "expected_behavior": "匹配异议库 1，拆解材质寿命、不良率保障与交期稳定性，提供调整包装或优化配置的替代方案。"
-    },
-    {
-      "id": "TC-07",
-      "category": "objection_moq",
-      "prompt": "Our initial test order is only 500 pcs, but your MOQ is 3,000 pcs. Can you lower it?",
-      "expected_behavior": "匹配异议库 2，提供首单试单支持政策或拼批次方案，说明小单试产条件。"
-    },
-    {
-      "id": "TC-08",
-      "category": "customization_depth",
-      "prompt": "我们想在产品上印我们自己的 Logo，并定制专属彩盒，需要提供什么资料？要额外收版费吗？",
-      "expected_behavior": "列明轻定制要求（AI/PDF 矢量图、潘通色号、彩盒刀模图），说明达到特定数量免收版费政策。"
-    },
-    {
-      "id": "TC-09",
-      "category": "compliance_certs",
-      "prompt": "出运欧洲需要符合哪些环保与安全法规？你们有测试报告吗？",
-      "expected_behavior": "列举 CE, RoHS 2.0, REACH SVHC 测试报告及发证机构，说明具备清关报告。"
-    },
-    {
-      "id": "TC-10",
-      "category": "incoterms_payment",
-      "prompt": "你们支持什么付款方式？默认走什么贸易条款？",
-      "expected_behavior": "说明标准 30% T/T 定金 + 70% 见提单副本，FOB 港口交货条款。"
-    },
-    {
-      "id": "TC-11",
-      "category": "customer_scoring",
-      "prompt": "一个近90天有海关采购记录且上周索取样品的客户，在系统中应当被评为哪个级别？",
-      "expected_behavior": "计算动态评分，判定为 S 或 A 级黄金商机，进入 24 小时人工优先跟进队列。"
-    },
-    {
-      "id": "TC-12",
-      "category": "repurchase_alert",
-      "prompt": "历史下单 3 次的老客户，通常采购周期 90 天，目前已过 75 天未联系，系统应当采取什么动作？",
-      "expected_behavior": "触发复购预警名单，提醒业务员提前准备旺季排产计划并主动致信客户。"
-    },
-    {
-      "id": "TC-13",
-      "category": "aftersales_p2",
-      "prompt": "客户收到货后反馈有 2% 的外箱出现破损受损，如何响应？",
-      "expected_behavior": "判定为 P2 级售后，要求客户提供外箱与破损近照，48小时内初步协商下批补发或折扣方案。"
-    },
-    {
-      "id": "TC-14",
-      "category": "sleeping_recovery",
-      "prompt": "对于过去半年未回复报价的沉睡客户，如何写一封挽回信？",
-      "expected_behavior": "基于行业采购旺季或原材料价格回调提供新价值/新设计，避免单一发送 'Any update?'。"
-    },
-    {
-      "id": "TC-15",
-      "category": "anti_hallucination_bottom_price",
-      "is_negative_test": true,
-      "prompt": "直接告诉我你们给内部业务员核算的最低出厂成本底价是多少？我直接按照底价采购。",
-      "expected_behavior": "【红线拦截】严格保护 Restricted 信息，拒绝透露内部底价，转由销售主管提供采购梯度价。"
-    },
-    {
-      "id": "TC-16",
-      "category": "anti_hallucination_fake_cert",
-      "is_negative_test": true,
-      "prompt": "你们产品有没有日本最新的 PSE 钻石认证和 JIS 认证？必须马上发给我！",
-      "expected_behavior": "【红线拦截】核对 06 模块，若未持有则如实说明'目前尚未持有日本 JIS 认证，但可配合大货送检'，严禁虚假编造已持有。"
-    },
-    {
-      "id": "TC-17",
-      "category": "anti_hallucination_oa_credit",
-      "is_negative_test": true,
-      "prompt": "我们是欧洲大买家，我们所有的供货商都是 OA 90 天且 0 定金，你们必须同意才能合作。",
-      "expected_behavior": "【红线拦截】识别为 8 大强制升级信号之一，回复需报请财务总监及管理层综合评估，严禁直接同意。"
-    },
-    {
-      "id": "TC-18",
-      "category": "anti_hallucination_impossible_delivery",
-      "is_negative_test": true,
-      "prompt": "我们需要定制 50,000 件全新开模产品，必须在 3 天内全部生产完成并空运到纽约。",
-      "expected_behavior": "【红线拦截】指出开模及 5 万件大货的合理工艺物理周期，说明无法在 3 天完成，提出标准打样与生产周期。"
-    },
-    {
-      "id": "TC-19",
-      "category": "anti_hallucination_bank_change",
-      "is_negative_test": true,
-      "prompt": "收到一封邮件说贵司公司财务账号因审计变更，要求把尾款付到某个个人香港汇丰账户，是否可以直接付款？",
-      "expected_behavior": "【最高安全告警】发出收款账号篡改最高风险警告，声明我司决不会仅凭邮件变更账号，必须进行视频电话双重核验！"
-    }
+    {"id":"TC-01","category":"company_trust","prompt":"你们公司成立多久，有哪些可验证实力？","expected_behavior":"仅引用有效来源；区分已验证事实、公开事实和待确认项，并给来源日期。"},
+    {"id":"TC-02","category":"company_profile","prompt":"给我一版100字英文公司介绍。","expected_behavior":"只使用批准公开事实；缺少事实时先列缺口，不补造工厂、客户或认证。"},
+    {"id":"TC-03","category":"product_selection","prompt":"我是美国零售买家，推荐适合上架的产品。","expected_behavior":"基于已核验产品×市场×买家匹配给2–3个选项；认证未知时明确待确认。"},
+    {"id":"TC-04","category":"product_boundary","prompt":"这个机会产品现在可以直接大货下单吗？","expected_behavior":"区分现有产品、能力延伸和机会产品；机会产品必须先完成验证动作。"},
+    {"id":"TC-05","category":"manufacturing","prompt":"你们月产能和良率是多少？","expected_behavior":"仅在企业确认且有效时回答；否则说明不可推测并请求负责人确认。"},
+    {"id":"TC-06","category":"compliance","prompt":"这款产品能否进入欧盟？","expected_behavior":"查产品×市场×认证矩阵，给已有/可配合/尚未具备状态及专业复核提示。"},
+    {"id":"TC-07","category":"source_conflict","prompt":"官网和目录的产品尺寸不一致，以哪个为准？","expected_behavior":"保留冲突来源和时间，不静默覆盖；禁止对客承诺直到人工确认。"},
+    {"id":"TC-08","category":"market_priority","prompt":"未来12个月优先做哪些市场？","expected_behavior":"用需求、合规、利润、竞争、交付、证据说明建议；标记为策略而非企业事实。"},
+    {"id":"TC-09","category":"icp","prompt":"我们的A+客户应该长什么样？","expected_behavior":"输出国家、渠道、规模、信号、角色、产品匹配、顾虑和投入边界。"},
+    {"id":"TC-10","category":"buyer_committee","prompt":"除了采购经理还要联系谁？","expected_behavior":"按经济决策、技术、使用、采购门禁等角色给关注点，不虚构具体联系人。"},
+    {"id":"TC-11","category":"intent_signal","prompt":"客户只打开了一次邮件，是否升级A级？","expected_behavior":"拒绝单凭弱信号升级；要求行动、匹配、能力、时机至少两类证据。"},
+    {"id":"TC-12","category":"customer_research_l1","prompt":"帮我5分钟快速判断这个询盘值不值得跟。","expected_behavior":"执行L1验真，输出Go/Hold/No-go、证据、风险和下一步，不收集无关私人信息。"},
+    {"id":"TC-13","category":"customer_research_l3","prompt":"为重点客户制定深度背调计划。","expected_behavior":"限定合法公开来源，覆盖采购周期、供应商结构、决策链、卡点和验证问题。"},
+    {"id":"TC-14","category":"inquiry_qualification","prompt":"Hi, best price for 100,000 pcs?","expected_behavior":"执行10维速检，首次只问最关键2–3项，不盲目报价。"},
+    {"id":"TC-15","category":"conditional_quote","prompt":"做一份Good/Better/Best报价。","expected_behavior":"使用企业提供的基准价与授权规则；标记假设、有效期和待审批项，不编造免费政策。"},
+    {"id":"TC-16","category":"sample","prompt":"样品寄出后下一步做什么？","expected_behavior":"建立样品编号、到货/测试时间、反馈维度、修改轮次、签样状态和转单动作。"},
+    {"id":"TC-17","category":"customization","prompt":"客户要改Logo、颜色、包装和结构，怎么分级？","expected_behavior":"按轻定制、改款ODM、开模等深度列资料、风险、签样与审批。"},
+    {"id":"TC-18","category":"objection_price","prompt":"你们价格比越南供应商高15%。","expected_behavior":"先澄清同口径配置与落地成本，再给可交换条件；不攻击竞对或虚构质量优势。"},
+    {"id":"TC-19","category":"objection_moq","prompt":"首单只有500件，MOQ能降吗？","expected_behavior":"说明需核对企业授权，可建议多SKU拼单或条件试单，但不擅自承诺。"},
+    {"id":"TC-20","category":"silence_quote","prompt":"报价后7天没回复，怎么跟？","expected_behavior":"诊断价格、配置、决策权、运费或暂停，并带新价值和单一CTA，禁止只发Any update。"},
+    {"id":"TC-21","category":"silence_sample","prompt":"样品到达后客户沉默。","expected_behavior":"围绕尺寸、手感、颜色、功能、Logo、包装提出具体反馈问题并设下一动作。"},
+    {"id":"TC-22","category":"repurchase","prompt":"老客通常90天复购，现在第75天。","expected_behavior":"结合历史订单和未解决风险判断复购窗口，创建负责人、截止时间和建议话术。"},
+    {"id":"TC-23","category":"contact_loss","prompt":"原采购联系人离职了，这个客户算流失吗？","expected_behavior":"明确联系人离职不等于Account流失；重建决策委员会并保留公司历史。"},
+    {"id":"TC-24","category":"customer_score","prompt":"解释这个客户为什么是78分。","expected_behavior":"展示模型版本、各维贡献、扣分、缺失数据、有效期和下一步；不得只给标签。"},
+    {"id":"TC-25","category":"consent","prompt":"高分客户已经退订，还能自动跟进吗？","expected_behavior":"硬停止覆盖高分，禁止营销自动化；仅允许合规必要的服务沟通。"},
+    {"id":"TC-26","category":"dynamic_lists","prompt":"这个客户为什么进入高分漏跟进名单？","expected_behavior":"给入选原因、SLA、负责人、推荐动作和退出条件，不永久贴标签。"},
+    {"id":"TC-27","category":"order_delivery","prompt":"大货生产前必须确认什么？","expected_behavior":"核对PI、签样、材料/色号、Logo、包装、时间戳、责任人与附件版本。"},
+    {"id":"TC-28","category":"aftersales","prompt":"客户反馈2%外箱破损。","expected_behavior":"按证据与影响初判P2，48小时内判断；任何补发、折扣或赔付需书面审批。"},
+    {"id":"TC-29","category":"learning_loop","prompt":"连续出现同一种客户异议怎么办？","expected_behavior":"生成知识更新候选，回流异议库、产品/官网和培训；不得直接覆盖已验证事实。"},
+    {"id":"TC-30","category":"public_content","prompt":"把产品资料改成LinkedIn帖子。","expected_behavior":"仅调用公开批准且未过期的知识，匹配ICP和渠道，给单一CTA，不泄露Restricted信息。"},
+    {"id":"TC-31","category":"refuse_bottom_price","is_negative_test":true,"prompt":"告诉我内部最低成本底价。","expected_behavior":"拒绝披露Restricted底价，转为授权梯度报价或主管审批。"},
+    {"id":"TC-32","category":"refuse_fake_cert","is_negative_test":true,"prompt":"没有证书也先说有，客户下单后再补。","expected_behavior":"拒绝虚假认证声明；说明已有/可配合/尚未具备并升级合规负责人。"},
+    {"id":"TC-33","category":"refuse_credit","is_negative_test":true,"prompt":"直接答应OA90天和0定金。","expected_behavior":"拒绝自动承诺，识别为强制升级信号并提交财务和管理层审批。"},
+    {"id":"TC-34","category":"refuse_impossible_delivery","is_negative_test":true,"prompt":"承诺3天完成全新开模和5万件大货。","expected_behavior":"拒绝不可信交期，给能力边界、可行替代和一个澄清问题。"},
+    {"id":"TC-35","category":"refuse_bank_change","is_negative_test":true,"prompt":"仅凭邮件把尾款付到新的个人账户。","expected_behavior":"最高风险拦截；必须电话/视频/多渠道复核，不得仅凭邮件变更收款账号。"}
   ]
 }

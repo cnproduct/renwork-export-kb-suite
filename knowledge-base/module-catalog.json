@@ -1,0 +1,26 @@
+{
+  "version": "4.0.0",
+  "modules": [
+    {"id":"00_kb_governance","title":"知识库总索引与治理","outputs":["知识地图","业务速查卡","新人7天路径","缺口确认队列","版本日志"]},
+    {"id":"01_sources_permissions","title":"来源、证据、权限与口径","outputs":["来源登记","证据资产","同义词","术语词典","权限规则","冲突记录"]},
+    {"id":"02_company_identity","title":"企业身份与可信实力","outputs":["公司事实","可信证据","30/100/300字简介","禁止夸大项"]},
+    {"id":"03_brand_messaging","title":"品牌与对外信息口径","outputs":["定位","价值主张","语气","视觉资产","多渠道口径","禁用表达"]},
+    {"id":"04_product_catalog","title":"产品知识与产品图谱","outputs":["产品卡","快速选型","现有/延伸/机会/暂停边界","交叉销售"]},
+    {"id":"05_manufacturing_quality","title":"制造、研发、质量与供应能力","outputs":["工艺流程","设备与产线","质量节点","追溯","异常处理","待确认产能"]},
+    {"id":"06_certification_compliance","title":"认证、法规与市场准入","outputs":["产品×市场×认证矩阵","到期预警","合规话术","禁用宣称"]},
+    {"id":"07_commercial_delivery","title":"商务政策、报价与交付规则","outputs":["MOQ","报价变量","样品/模具","付款","交期","单证与收款安全"]},
+    {"id":"08_market_intelligence","title":"目标市场与行业情报","outputs":["行业入门卡","年度采购节奏","市场优先级","法规与风险"]},
+    {"id":"09_icp_buyer_personas","title":"ICP 与买家决策委员会","outputs":["ICP分层","采购角色","痛点与成功标准","识别信号"]},
+    {"id":"10_buyer_intent_signals","title":"买家意图信号与机会评分","outputs":["信号等级","时间衰减","信号—动作映射","风险信号"]},
+    {"id":"11_competitors_differentiation","title":"竞争对手与差异化","outputs":["竞对类型","痛点—能力—证据链","替换切入点","不可攻击事项"]},
+    {"id":"12_product_market_fit","title":"产品—市场—买家匹配","outputs":["产品×国家×渠道×买家×场景矩阵","推荐等级","证据","首次动作"]},
+    {"id":"13_lead_discovery","title":"线索发现与客户背调","outputs":["关键词与渠道","L1/L2/L3背调卡","Go/Hold/Nurture/No-go","首触达策略"]},
+    {"id":"14_customer_asset_lifecycle","title":"客户资产、老客户与关系生命周期","outputs":["八类实体","黄金主记录","V4评分","S/A/B/C/D","八类动态名单","复购预警"]},
+    {"id":"15_inquiry_qualification","title":"询盘识别、资格判断与推进","outputs":["10维速检","三层下钻","24小时动作","升级红线"]},
+    {"id":"16_solution_quotation","title":"方案、选型、报价与样品","outputs":["Good/Better/Best","条件报价","定制深度","样品档案","签样规则"]},
+    {"id":"17_objection_negotiation","title":"异议、谈判、风险与审批","outputs":["十类异议","三级强度","可交换条件","绝对红线","审批人"]},
+    {"id":"18_sales_content_templates","title":"销售内容与多触点话术","outputs":["开发信","询盘回复","跟进/挽回","B2B发品","SEO/GEO","多语言FAQ"]},
+    {"id":"19_order_delivery_aftersales","title":"订单、交付与售后","outputs":["订单节点SOP","版本与附件","P1/P2/P3","售后证据包","复购动作"]},
+    {"id":"20_learning_metrics","title":"复盘、指标与持续学习","outputs":["赢输单归因","沉默诊断","周报","知识更新候选","成熟度与质量指标"]}
+  ]
+}

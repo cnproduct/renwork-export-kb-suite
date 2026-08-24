@@ -1,24 +1,37 @@
 {
-  "name": "renwork-export-kb-suite-monorepo",
-  "version": "3.0.0",
-  "description": "RenWork Export Enterprise AI Knowledge Base Suite V3.0 Monorepo",
+  "name": "renwork-ai-export-growth-system",
+  "version": "4.0.0",
+  "description": "Evidence-first, tenant-safe RenWork AI foreign trade growth system",
   "private": true,
-  "scripts": {
-    "build:mcp": "cd mcp/export-kb-mcp && npm run build",
-    "build:api": "cd cloud-api && npm run build",
-    "build:all": "npm run build:mcp && npm run build:api",
-    "start:api": "cd cloud-api && npm start",
-    "start:mcp": "cd mcp/export-kb-mcp && npm start",
-    "test": "cd cloud-api && npm test"
-  },
-  "keywords": [
-    "renwork",
-    "export-kb",
-    "b2b",
-    "skills",
-    "mcp",
-    "cloud-api"
+  "workspaces": [
+    "packages/core",
+    "cloud-api",
+    "mcp/export-kb-mcp"
   ],
+  "scripts": {
+    "clean": "npm run clean -w @renwork/export-growth-core && npm run clean -w renwork-export-kb-cloud-api && npm run clean -w renwork-export-kb-mcp",
+    "build:core": "npm run build -w @renwork/export-growth-core",
+    "build:api": "npm run build:core && npm run build -w renwork-export-kb-cloud-api",
+    "build:mcp": "npm run build:core && npm run build -w renwork-export-kb-mcp",
+    "build": "npm run build:core && npm run build -w renwork-export-kb-cloud-api && npm run build -w renwork-export-kb-mcp",
+    "build:all": "npm run build",
+    "test": "npm run test -w @renwork/export-growth-core && npm run test -w renwork-export-kb-cloud-api && npm run check:metadata",
+    "start:api": "npm run start -w renwork-export-kb-cloud-api",
+    "start:mcp": "npm run start -w renwork-export-kb-mcp",
+    "dev:api": "npm run dev -w renwork-export-kb-cloud-api",
+    "dev:mcp": "npm run dev -w renwork-export-kb-mcp",
+    "bootstrap:kb": "node scripts/bootstrap-kb.mjs",
+    "check:metadata": "node scripts/check-metadata.mjs",
+    "check:plugin": "tsc -p tsconfig.plugin.json",
+    "verify": "npm run build && npm run check:plugin && npm test"
+  },
+  "keywords": ["renwork", "foreign-trade", "export-growth", "knowledge-base", "mcp", "opencode-plugin", "cloud-api"],
   "author": "人人易 AI (Renrenyi AI)",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": { "node": ">=20 <25" },
+  "packageManager": "npm@10.9.2",
+  "devDependencies": {
+    "@opencode-ai/plugin": "1.18.22",
+    "typescript": "^5.7.3"
+  }
 }

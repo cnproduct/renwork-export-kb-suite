@@ -1,118 +1,143 @@
-# RenWork 外贸出口企业 AI 知识库标准框架套件 (V3.0)
+# RenWork AI 外贸增长系统 V4
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![RenWork Version](https://img.shields.io/badge/RenWork-v3.0.0-green.svg)](https://rrenn.com)
-[![MCP Ready](https://img.shields.io/badge/MCP-1.6.0-orange.svg)](https://modelcontextprotocol.io)
-[![Docker Support](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](Dockerfile)
+[![CI](https://github.com/cnproduct/renwork-export-kb-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/cnproduct/renwork-export-kb-suite/actions/workflows/ci.yml)
+[![Container](https://img.shields.io/badge/GHCR-container-2496ED)](https://github.com/cnproduct/renwork-export-kb-suite/pkgs/container/renwork-export-kb-suite)
+[![License](https://img.shields.io/badge/license-MIT-0C7C59)](LICENSE)
 
-> 本套件基于 [外贸出口企业 AI 知识库标准框架 V3.0](docs/外贸出口企业AI知识库标准框架_V3.0.md)，为中国外贸出口制造企业提供从**公司简介 + 官网冷启动**、**00–20 模块知识中台构建**、**8 类客户资产与 360 图谱**、**100 分动态客户优先级评分**、**8 类动态跟进名单**、**六大岗位专属视图**、**询盘 10 步速检**、**阶梯报价**、**6 大云聚合工具 (海关/CRM/邮箱验真/运费/汇率)** 到 **防幻觉置信度审计** 的全栈生产级工具集。
+基于《[外贸出口企业 AI 知识库标准框架 V3.0](docs/外贸出口企业AI知识库标准框架_V3.0.md)》实现的**证据优先、租户隔离、可审计**外贸增长系统。连接 RenWork/OpenCode 的知识库、Skills、MCP、Plugin、Cloud API 与 Web Portal，覆盖企业知识冷启动、客户资产、询盘、报价、跟进、复购、售后和持续学习。
 
----
+> V4 的首要升级不是增加“神奇功能”，而是删除虚假能力：没有实时提供商就返回 `unavailable`；没有来源就不当企业事实；没有审批就不对外承诺。
 
-## 🌟 核心体系与特性
+## 系统组成
 
-1. **双核心 (Dual Core)**：企业事实与销售知识核心 + 客户资产与关系全生命周期核心。
-2. **五层知识架构 (L0–L4)**：治理层、企业真相层、市场决策层、销售执行层与持续学习层。
-3. **5 大生产级 Skills**：
-   - `renwork-export-kb-orchestrator`: 00–20 模块冷启动总控技能
-   - `renwork-customer-asset-intelligence`: 8 类实体模型、100分动态评分、S/A/B/C/D 分层与 8 类动态名单
-   - `renwork-export-sales-execution`: 询盘 10 步速检、Good/Better/Best 报价、10 类异议应对与 8 大升级红线
-   - `renwork-industry-kb-adapter`: 7 大出口垂直行业自适应增强配置
-   - `renwork-kb-governance-auditor`: 知识卡六态置信度审计与 30+5 问答基准测试
-4. **6 大云端 API 聚合工具 (Cloud Aggregators)**：
-   - `Customs Aggregator`: 海关提单与真实买家穿透，自动过滤 NVOCC 货代，提取 180 天进口柜量与供应链异动。
-   - `CRM Aggregator`: OKKI CRM / 小满 / Salesforce 双向实体映射与黄金主记录去重。
-   - `Web Fact Scraper`: 企业官网结构化事实、产品规格、资质认证与条款自动解析。
-   - `Email Verifier`: 决策人邮箱 MX 解析与 C1/C2/C0 置信度分级。
-   - `Trade & Freight Estimator`: 全球关税税率预估、20GP/40HQ 海运费估算与 Incoterms 风险责任划分。
-   - `FX Converter`: 实时多币种汇率换算与 2% 汇率对冲毛利保本测算。
-5. **标准 MCP 服务器 (`export-kb-mcp`)**：提供 18+ 原生 MCP 工具，无缝集成 Antigravity、Claude Desktop、Cursor 等。
-6. **生产级 Cloud API 服务**：基于 Express + TypeScript + Docker，提供完整的 RESTful 接口与 OpenAPI 3.0 规范。
-7. **响应式 Web 知识门户 (Portal)**：内置 6 岗位视图、业务速查卡、新人 7 天学习路径、8 类动态名单看板、100 分评分沙盒与云聚合工具实战面板。
+| 层 | 交付 |
+|---|---|
+| Knowledge Base | 00–20 模块目录、知识卡 Schema、八类客户实体 Schema、可重复生成器 |
+| Skills | 5 个专项 Skill + 1 个 V4 总控 Skill，企业事实不硬编码进 Skill |
+| MCP | 16 个 stdio 工具，`RENWORK_TENANT_ID` 启动时固定，模型不能切换租户 |
+| RenWork/OpenCode Plugin | 4 个 Cloud API 工具，API Key 只从环境变量读取 |
+| Cloud API | Bearer 鉴权、租户从身份派生、严格输入校验、限流、安全头、请求 ID |
+| Customer Intelligence | 八类实体、V4 可解释评分、许可硬停止、S/A/B/C/D、八类动态名单 |
+| Sales Execution | 10 维询盘速检、条件报价草稿、P1/P2/P3 售后分级 |
+| Portal | 可连接真实 API 的战术工作台；不再展示虚构在线状态或固定演示结果 |
+| Delivery | Docker Compose、GHCR、GitHub Pages、CI、35 例治理基准 |
 
----
+## 安全边界
 
-## 📁 目录结构
+- 租户 ID 来自 API Key 或 MCP 进程环境，不接受模型在请求中指定。
+- 所有冷启动卡默认 `public_claim_approved=false`。
+- 退订、黑名单、营销许可、欠款和严重纠纷优先于评分。
+- 海关、CRM、官网采集、运费关税与汇率未配置真实提供商时返回 HTTP 501。
+- 邮箱工具只做语法检查，明确不代表 MX、SMTP、邮箱所有权或决策人身份已验证。
+- 真实企业资料、客户、订单、报价、凭据和日志放在 `data/` 或外部数据库，禁止提交 Git。
+- 当前开源版持久层是 `ephemeral_memory`，用于安全验证和二次开发；生产多实例部署需接 PostgreSQL/RLS、对象存储、OIDC 与密钥管理。
 
-```text
-renwork-export-kb-suite/
-├── .ci/                       # CI/CD 自动化工作流
-├── docs/                      # 架构文档与接口规范
-│   ├── 外贸出口企业AI知识库标准框架_V3.0.md
-│   ├── ARCHITECTURE.md
-│   └── API_SPEC.md
-├── skills/                    # 5 大标准化 Agent Skills
-│   ├── renwork-export-kb-orchestrator/
-│   ├── renwork-customer-asset-intelligence/
-│   ├── renwork-export-sales-execution/
-│   ├── renwork-industry-kb-adapter/
-│   └── renwork-kb-governance-auditor/
-├── mcp/                       # Model Context Protocol (MCP) 服务器
-│   └── export-kb-mcp/
-├── cloud-api/                 # RESTful Cloud API 生产服务
-│   ├── src/
-│   │   ├── aggregators/       # 6 大云聚合工具实现
-│   │   ├── engines/           # 核心知识与客户评分引擎
-│   │   ├── routes/            # RESTful 路由
-│   │   └── server.ts
-├── portal/                    # 响应式 Web 知识门户
-│   ├── index.html
-│   ├── styles.css
-│   └── app.js
-├── Dockerfile                 # 生产级多阶段容器构建
-├── docker-compose.yml
-├── install.sh                 # 一键安装脚本
-├── plugin.json                # Plugin 插件清单
-└── package.json
-```
+## 5 分钟启动
 
----
+需要 Node.js 20–24 或 Docker。
 
-## 🚀 快速开始
-
-### 1. 一键安装并构建
 ```bash
 git clone https://github.com/cnproduct/renwork-export-kb-suite.git
 cd renwork-export-kb-suite
-chmod +x install.sh
-./install.sh
+npm ci
+npm run verify
+cp .env.example .env
+# 修改 .env 中的演示密钥
+docker compose up --build
 ```
 
-### 2. 启动 Cloud API 服务
+打开 <http://localhost:8080>，输入 `.env` 中 API Key。健康检查：
+
 ```bash
-npm run start:api
-# API 运行在 http://localhost:8080
-# 健康检查: http://localhost:8080/healthz
-# OpenAPI 规范: http://localhost:8080/openapi.json
-# 聚合工具: http://localhost:8080/api/v1/cloud-aggregators/*
+curl http://localhost:8080/health/ready
 ```
 
-### 3. 使用 Docker 运行
+## 生成企业知识库骨架
+
 ```bash
-docker-compose up --build -d
+npm run bootstrap:kb -- \
+  --tenant acme-export \
+  --company "Acme Export Ltd" \
+  --out data/acme-export
 ```
 
-### 4. 打开 Web 知识门户
-双击打开 `portal/index.html`，或在浏览器中访问。
+结果包含 21 个模块，全部处于待补充/待核验状态，不会把模板冒充企业事实。
 
----
+## Cloud API
 
-## 🔧 MCP 服务器配置
+API 使用 Bearer Key。格式：
 
-在 Antigravity / Claude Desktop 配置文件 `mcp_servers` 中添加：
-
-```json
-{
-  "mcpServers": {
-    "renwork-export-kb": {
-      "command": "node",
-      "args": ["/path/to/renwork-export-kb-suite/mcp/export-kb-mcp/dist/index.js"]
-    }
-  }
-}
+```text
+RENWORK_API_KEYS=long-secret-key:tenant-id:admin|sales,another-key:tenant-b:admin
 ```
 
----
+示例：
 
-## 📄 开源许可
-[MIT License](LICENSE) © 2026 人人易 AI (Renrenyi AI)
+```bash
+curl -X POST http://localhost:8080/api/v1/kb/cold-start \
+  -H "Authorization: Bearer $RENWORK_EXPORT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"company_name":"Acme Export","website_url":"https://example.com","profile_summary":"User supplied profile"}'
+```
+
+详见 `docs/API_SPEC.md` 与运行时 `/openapi.json`。
+
+## MCP 配置
+
+先构建，再把租户固定在进程环境：
+
+```bash
+npm run build:mcp
+RENWORK_TENANT_ID=acme-export npm run start:mcp
+```
+
+仓库自带 `opencode.json`。在 RenWork 中，也可以按官方路径打开 `Settings > Extensions > Add Custom App` 添加自定义 MCP；本地 stdio MCP 不暴露租户切换参数。
+
+## Plugin 与 Skills
+
+- OpenCode Plugin：`.opencode/plugins/renwork-export-growth.ts`
+- V4 总控 Skill：`.opencode/skills/renwork-ai-export-growth-system/SKILL.md`
+- 专项 Skills：`skills/*/SKILL.md`
+
+Plugin 需要：
+
+```bash
+export RENWORK_EXPORT_API_URL=http://localhost:8080
+export RENWORK_EXPORT_API_KEY='your-private-key'
+```
+
+不要把 Key 写入 `opencode.json`、Skill 或任何 Git 文件。
+
+## GitHub 交付
+
+- `main` 推送自动执行 build、测试、元数据校验、知识库生成烟测与 Docker build。
+- 镜像自动发布到 `ghcr.io/cnproduct/renwork-export-kb-suite:latest`。
+- Portal 通过 GitHub Pages 工作流发布；Pages 只承载静态界面，不承载 API、数据库或秘密。
+
+## 验证
+
+```bash
+npm run verify
+node --check portal/app.js
+docker build -t renwork-export-growth:local .
+```
+
+测试重点覆盖：租户隔离、默认公开闸门关闭、营销许可硬停止、负数报价拒绝、未配置连接器诚实失败、邮箱不伪验真、35 例基准不伪造通过率。
+
+## 路线图
+
+1. PostgreSQL + RLS + pgvector + 对象存储持久层。
+2. OIDC/OAuth 2.1 与远程 Streamable HTTP MCP。
+3. 按企业授权接入 OKKI/CRM、邮箱、订单和持牌海关/贸易数据。
+4. 审批流、事件队列、审计日志、备份恢复与 9 万客户压力测试。
+5. 按实际赢单、复购、回款和投诉校准评分，不允许模型自动改规则。
+
+## 文档
+
+- `docs/ARCHITECTURE.md`：架构、安全和生产化边界
+- `docs/API_SPEC.md`：API 与错误合同
+- `knowledge-base/README.md`：知识库生成与数据规范
+- `DESIGN.md`：Portal 设计系统与无障碍标准
+- OpenWork 概念参考：`start-here/do-work-with-it/skills-plugins-and-mcp.mdx`、`start-here/connect-your-stack/add-an-mcp-server.mdx`
+
+MIT License © 2026 人人易 AI

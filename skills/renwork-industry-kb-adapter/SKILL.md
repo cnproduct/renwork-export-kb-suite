@@ -32,7 +32,7 @@ description: 12 大外贸出口行业自适应分支增强与无限扩展技能�
 
 企业若属于其他细分行业（如 **光伏储能、农业机械、实验室仪器、珠宝首饰** 等），只需在 `industry_profiles.json` 中配置一个 JSON 节点：
 - `required_fields`: 行业核心参数与质检关键点；
-- `certifications`: 目标市场准入强制认证清单；
+- `certifications`: 行业常见的候选认证/法规检索词；必须按具体产品、用途、市场和最新权威来源核验，不得直接视为强制清单或企业已持有证书；
 - `buying_season`: 供应商视角年度采购节奏；
 - `core_painpoints`: 海外买家常见客诉与质量隐患。
 

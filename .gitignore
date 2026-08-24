@@ -1,7 +1,12 @@
 node_modules/
 dist/
-.DS_Store
 *.log
 .env
-.idea/
-.vscode/
+.env.*
+!.env.example
+data/
+coverage/
+.DS_Store
+*.pem
+*.key
+secrets/

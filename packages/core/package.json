@@ -1,0 +1,31 @@
+{
+  "name": "@renwork/export-growth-core",
+  "version": "4.0.0",
+  "description": "Tenant-safe domain core for the RenWork AI Export Growth System",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "test": "npm run build && node --test dist/core.test.js"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "license": "MIT"
+}

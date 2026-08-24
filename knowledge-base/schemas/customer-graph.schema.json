@@ -1,0 +1,31 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://rrenn.com/schemas/customer-graph-v4.json",
+  "title":"RenWork Customer Relationship Graph V4",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["tenant_id","accounts","contacts","opportunities","interactions","transactions","product_interests","tasks","risk_consents"],
+  "properties":{
+    "tenant_id":{"$ref":"#/$defs/id"},
+    "accounts":{"type":"array","items":{"$ref":"#/$defs/account"}},
+    "contacts":{"type":"array","items":{"$ref":"#/$defs/contact"}},
+    "opportunities":{"type":"array","items":{"$ref":"#/$defs/opportunity"}},
+    "interactions":{"type":"array","items":{"$ref":"#/$defs/interaction"}},
+    "transactions":{"type":"array","items":{"$ref":"#/$defs/transaction"}},
+    "product_interests":{"type":"array","items":{"$ref":"#/$defs/productInterest"}},
+    "tasks":{"type":"array","items":{"$ref":"#/$defs/task"}},
+    "risk_consents":{"type":"array","items":{"$ref":"#/$defs/riskConsent"}}
+  },
+  "$defs":{
+    "id":{"type":"string","minLength":1,"maxLength":100,"pattern":"^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "tenant":{"type":"object","required":["tenant_id"],"properties":{"tenant_id":{"$ref":"#/$defs/id"}}},
+    "account":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["account_id","standard_name","country","consent_status"],"properties":{"account_id":{"$ref":"#/$defs/id"},"standard_name":{"type":"string"},"domain":{"type":"string"},"country":{"type":"string"},"consent_status":{"enum":["subscribed","opt_out","unsubscribed","blacklisted","disputed_debt"]},"risk_flags":{"type":"array","items":{"type":"string"}}}}]},
+    "contact":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["contact_id","account_id","full_name"],"properties":{"contact_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"full_name":{"type":"string"},"role_in_buying_committee":{"type":"string"}}}]},
+    "opportunity":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["opportunity_id","account_id","stage"],"properties":{"opportunity_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"stage":{"enum":["discovery","rfq_received","quote_sent","sample_testing","commercial_negotiation","pi_issued","closed_won","closed_lost"]}}}]},
+    "interaction":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["interaction_id","account_id","channel","timestamp"],"properties":{"interaction_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"channel":{"type":"string"},"timestamp":{"type":"string","format":"date-time"}}}]},
+    "transaction":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["transaction_id","account_id","type","amount","currency","occurred_at"],"properties":{"transaction_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"type":{"enum":["quote","sample","order","payment","refund","claim"]},"amount":{"type":"number","minimum":0},"currency":{"type":"string","pattern":"^[A-Z]{3}$"},"occurred_at":{"type":"string","format":"date-time"}}}]},
+    "productInterest":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["interest_id","account_id","product_id","observed_at"],"properties":{"interest_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"product_id":{"$ref":"#/$defs/id"},"observed_at":{"type":"string","format":"date-time"}}}]},
+    "task":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["task_id","account_id","action","owner","due_at","status"],"properties":{"task_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"action":{"type":"string"},"owner":{"type":"string"},"due_at":{"type":"string","format":"date-time"},"status":{"enum":["open","completed","cancelled"]}}}]},
+    "riskConsent":{"allOf":[{"$ref":"#/$defs/tenant"},{"type":"object","required":["record_id","account_id","status","source","effective_at"],"properties":{"record_id":{"$ref":"#/$defs/id"},"account_id":{"$ref":"#/$defs/id"},"status":{"enum":["subscribed","opt_out","unsubscribed","blacklisted","disputed_debt"]},"risk_flags":{"type":"array","items":{"type":"string"}},"source":{"type":"string"},"effective_at":{"type":"string","format":"date-time"}}}]}
+  }
+}

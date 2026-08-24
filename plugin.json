@@ -1,7 +1,7 @@
 {
   "name": "renwork-export-kb-suite",
-  "version": "3.0.0",
-  "description": "RenWork 外贸出口企业 AI 知识库标准体系插件 (V3.0)：涵盖 00–20 模块知识中台构建、8类客户资产与关系图谱、100分动态客户优先级模型、8类动态跟进名单、6岗位视图、询盘10步速检、阶梯报价与防幻觉质量审计。",
+  "version": "4.0.0",
+  "description": "RenWork AI 外贸增长系统 V4：证据优先、租户隔离、公开发布闸门、8类客户实体、可解释评分、8类动态名单、询盘与条件报价。未配置实时连接器时明确拒绝模拟数据。",
   "author": {
     "name": "人人易 AI (Renrenyi AI)",
     "email": "support@rrenn.com",
@@ -13,7 +13,7 @@
     "renwork",
     "export-kb",
     "b2b-export",
-    "knowledge-base-v3",
+    "knowledge-base-v4",
     "customer-asset-360",
     "dynamic-scoring",
     "sales-execution",
@@ -32,6 +32,12 @@
     "skills/renwork-customer-asset-intelligence",
     "skills/renwork-export-sales-execution",
     "skills/renwork-industry-kb-adapter",
-    "skills/renwork-kb-governance-auditor"
-  ]
+    "skills/renwork-kb-governance-auditor",
+    ".opencode/skills/renwork-ai-export-growth-system"
+  ],
+  "opencode_plugin": ".opencode/plugins/renwork-export-growth.ts",
+  "configuration": {
+    "required_environment": ["RENWORK_TENANT_ID"],
+    "optional_environment": ["RENWORK_EXPORT_API_URL", "RENWORK_EXPORT_API_KEY"]
+  }
 }

@@ -1,8 +1,8 @@
 {
   "manifest_version": "1.0.0",
   "name": "renwork-export-kb-suite",
-  "version": "3.0.0",
-  "description": "RenWork Export Enterprise AI Knowledge Base Suite V3.0",
+  "version": "4.0.0",
+  "description": "RenWork AI Export Growth System V4",
   "author": "人人易 AI (Renrenyi AI)",
   "skills": [
     {
@@ -24,6 +24,10 @@
     {
       "name": "renwork-kb-governance-auditor",
       "path": "skills/renwork-kb-governance-auditor"
+    },
+    {
+      "name": "renwork-ai-export-growth-system",
+      "path": ".opencode/skills/renwork-ai-export-growth-system"
     }
   ],
   "mcp_servers": [
@@ -39,5 +43,8 @@
   },
   "portal": {
     "entry": "portal/index.html"
+  },
+  "opencode_plugin": {
+    "entry": ".opencode/plugins/renwork-export-growth.ts"
   }
 }

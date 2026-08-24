@@ -1,366 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RenWork 外贸出口企业 AI 知识中台 (V3.0)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RenWork AI 外贸增长系统证据优先工作台">
+  <title>RenWork AI 外贸增长系统</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app-container">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="logo-badge">RW</div>
-        <div class="brand-text">
-          <h2>RenWork KB</h2>
-          <span class="version-tag">V3.0 标准版</span>
-        </div>
-      </div>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">RW</span>
+      <div><strong>AI 外贸增长系统</strong><small>Evidence-first Control Desk · V4</small></div>
+    </div>
+    <a class="repo-link" href="https://github.com/cnproduct/renwork-export-kb-suite">GitHub 源码</a>
+  </header>
 
-      <nav class="nav-menu">
-        <div class="nav-section-title">知识库中台</div>
-        <button class="nav-item active" data-tab="cheat-sheet">⚡ 业务速查卡 (Cheat Sheet)</button>
-        <button class="nav-item" data-tab="newcomer-path">🌱 新人 7 天学习路径</button>
-        <button class="nav-item" data-tab="role-views">👥 六大岗位专属视图</button>
-        <button class="nav-item" data-tab="modules-21">📚 21 个标准模块总览</button>
-
-        <div class="nav-section-title">客户资产与生命周期</div>
-        <button class="nav-item" data-tab="dynamic-lists">🎯 八类动态跟进名单</button>
-        <button class="nav-item" data-tab="scoring-sandbox">🧮 100分动态评分沙盒</button>
-
-        <div class="nav-section-title">销售实战执行</div>
-        <button class="nav-item" data-tab="inquiry-qualifier">🔍 询盘 10 步速检</button>
-        <button class="nav-item" data-tab="tiered-quote">📊 Good/Better/Best 报价</button>
-        <button class="nav-item" data-tab="objections">🛡️ 10 类异议与升级红线</button>
-
-        <div class="nav-section-title">云端聚合工具</div>
-        <button class="nav-item" data-tab="cloud-aggregators">☁️ Cloud API 聚合工具群</button>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="status-indicator">
-          <span class="dot"></span>
-          <span>Cloud API: Online (Port 8080)</span>
-        </div>
-        <p class="tenant-name">人人易智造 (Renrenyi)</p>
-      </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <header class="top-header">
-        <div class="search-bar">
-          <input type="text" id="global-search" placeholder="全局检索 00-20 模块知识卡 (如: MOQ, 认证, 异议, 美线, 阶梯价)...">
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-outline" id="btn-run-benchmark">🧪 运行 30+5 基准测试</button>
-          <button class="btn btn-primary" id="btn-export-pkg">📦 导出插件包</button>
-        </div>
-      </header>
-
-      <div class="content-body">
-        <!-- Tab 1: Cheat Sheet -->
-        <section id="tab-cheat-sheet" class="tab-pane active">
-          <div class="card header-card">
-            <div class="card-header-badge">00_kb_governance</div>
-            <h2>业务一页纸速查卡 (Sales Quick Reference Card)</h2>
-            <p class="lead-text">业务员日常对客、新人快速上手与主管审批的核心事实基底。</p>
-          </div>
-
-          <div class="grid grid-2">
-            <div class="card">
-              <h3>🎯 一句话定位与核心背书</h3>
-              <p class="highlight-box">中国领先的外贸 AI 驱动型高端出口制造与跨境供应链服务商，拥有 15 年出口制造经验，通过 ISO9001 / BSCI 验厂，产品符合 FDA / CE / RoHS 权威认证。</p>
-              
-              <h4 style="margin-top:16px;">🌟 主推 3 款核心 SKU</h4>
-              <ul class="bullet-list">
-                <li><strong>RW-PROD-01 (畅销款)</strong>: 食品级材质，MOQ 1,000 pcs，交期 25 天</li>
-                <li><strong>RW-PROD-02 (定制款)</strong>: 私模结构，支持双色 Logo，MOQ 3,000 pcs</li>
-                <li><strong>RW-PROD-03 (引流款)</strong>: 极致性价比，标准中性包装，MOQ 500 pcs</li>
-              </ul>
-            </div>
-
-            <div class="card red-card">
-              <h3>🚨 绝对不可突破红线 (8 大禁令)</h3>
-              <ul class="red-line-list">
-                <li>❌ 严禁未经授权承诺低于系统底价；</li>
-                <li>❌ 严禁未经书面审批提供 OA/远期赊销账期；</li>
-                <li>❌ 严禁未经书面签样直接安排大货定制生产；</li>
-                <li>❌ 严禁在开发信/公开发布中承诺未持有的强制认证；</li>
-                <li>❌ 严禁凭邮件单方面变更公司收款银行账号 (须视频电话双核验)；</li>
-                <li>❌ 严禁向未验证真实性的买家提供免费开模；</li>
-                <li>❌ 严禁私自签署独家代理或区域排他协议；</li>
-                <li>❌ 严禁对 P1 级重大质量事故擅自作出私下赔付承诺。</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:20px;">
-            <h3>❓ 询盘必问 5 项核心问题 (一键复制)</h3>
-            <div class="script-grid">
-              <div class="script-item">
-                <span class="script-num">1</span>
-                <p>请问您本次采购的目标销售国家与渠道是什么？(批发/商超/电商)</p>
-                <button class="btn-copy">复制</button>
-              </div>
-              <div class="script-item">
-                <span class="script-num">2</span>
-                <p>本次采购预计的首单试销量与全年的大致采购节奏是多少？</p>
-                <button class="btn-copy">复制</button>
-              </div>
-              <div class="script-item">
-                <span class="script-num">3</span>
-                <p>是否有特定的定制要求？(如定制彩盒、激光印标或特殊认证)</p>
-                <button class="btn-copy">复制</button>
-              </div>
-              <div class="script-item">
-                <span class="script-num">4</span>
-                <p>贵司期望的目标交期与目的港口是哪里？(FOB/CIF/DDP)</p>
-                <button class="btn-copy">复制</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab: Newcomer 7-Day Path -->
-        <section id="tab-newcomer-path" class="tab-pane">
-          <div class="card">
-            <h2>🌱 外贸新人 7 天学习与实战路径 (Newcomer 7-Day Onboarding)</h2>
-            <p class="lead-text">每天一个核心知识主题 + 一项实战输出，拒绝无效死记硬背，快速形成实战出单能力。</p>
-            <div class="path-timeline" id="newcomer-timeline-container">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 2: Role Views -->
-        <section id="tab-role-views" class="tab-pane">
-          <div class="role-selector">
-            <button class="role-btn active" data-role="management">👑 老板/管理层</button>
-            <button class="role-btn" data-role="sales_director">📊 销售主管</button>
-            <button class="role-btn" data-role="junior_sales">🌱 新人业务</button>
-            <button class="role-btn" data-role="senior_sales">🚀 资深业务</button>
-            <button class="role-btn" data-role="marketing">🎨 市场/运营</button>
-            <button class="role-btn" data-role="operations_quality">📦 跟单/品质</button>
-          </div>
-          <div id="role-content" class="card" style="margin-top:20px;">
-            <!-- Dynamic Role Content Injected via JS -->
-          </div>
-        </section>
-
-        <!-- Tab 3: Dynamic Lists -->
-        <section id="tab-dynamic-lists" class="tab-pane">
-          <div class="card">
-            <h2>🎯 八类动态客户跟进名单 (实时计算)</h2>
-            <p class="lead-text">系统根据意图强弱、采购异动、复购周期与停滞时间动态归类，杜绝客户漏跟。</p>
-            <div class="list-tabs">
-              <button class="list-tab active" data-list="today_must_follow">🔥 今日必跟 (1)</button>
-              <button class="list-tab" data-list="stalled_after_quote">⏳ 报价未推进 (1)</button>
-              <button class="list-tab" data-list="sample_unconverted">🧪 样品未转单 (1)</button>
-              <button class="list-tab" data-list="repeat_purchase_warning">🔄 复购预警 (1)</button>
-              <button class="list-tab" data-list="sourcing_anomaly">⚡ 采购异动 (1)</button>
-              <button class="list-tab" data-list="high_intent_no_inquiry">👀 高互动未询盘 (1)</button>
-              <button class="list-tab" data-list="reactivated_after_dormancy">✨ 沉睡重活跃 (1)</button>
-              <button class="list-tab" data-list="high_score_missed_follow">⚠️ 高分漏跟进 (1)</button>
-            </div>
-            <div id="dynamic-list-content" style="margin-top:16px;">
-              <!-- Dynamic Table injected via JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 4: 100-pt Scoring Sandbox -->
-        <section id="tab-scoring-sandbox" class="tab-pane">
-          <div class="card">
-            <h2>🧮 100 分动态客户优先级评分沙盒</h2>
-            <div class="grid grid-2" style="margin-top:16px;">
-              <form id="scoring-form">
-                <div class="form-group">
-                  <label>客户名称 / 域名</label>
-                  <input type="text" id="score-name" value="Apex Global Sourcing LLC">
-                </div>
-                <div class="form-group">
-                  <label>ICP 匹配度 (Max 20分)</label>
-                  <select id="score-icp">
-                    <option value="20">A+ 核心大买家 (20分)</option>
-                    <option value="16">A 优质匹配 (16分)</option>
-                    <option value="10">B 培育级 (10分)</option>
-                    <option value="4">C 低匹配 (4分)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>近期采购意向行为 (Max 25分)</label>
-                  <select id="score-intent">
-                    <option value="25">7天内新询盘 + 索要样品/报价 (25分)</option>
-                    <option value="18">明确回复并沟通参数 (18分)</option>
-                    <option value="10">查看产品页 >=3次 (10分)</option>
-                    <option value="2">仅打开邮件 (2分)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>采购实力与历史订单 (Max 20分)</label>
-                  <select id="score-power">
-                    <option value="20">年采购 >$10万 + 临近复购周期 (20分)</option>
-                    <option value="12">海关近90天稳定提单 (12分)</option>
-                    <option value="5">首单试单潜力 (5分)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>商机推进阶段 (Max 15分)</label>
-                  <select id="score-stage">
-                    <option value="15">商业谈判 / PI 待付定金 (15分)</option>
-                    <option value="10">样品测试中 (10分)</option>
-                    <option value="6">已发送阶梯报价 (6分)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>风险扣分 (Risk Penalty)</label>
-                  <select id="score-risk">
-                    <option value="0">无任何风险 (0分)</option>
-                    <option value="-20">邮件持续退信 (-20分)</option>
-                    <option value="-30">历史欠款纠纷 (-30分)</option>
-                    <option value="-100">明确退订/黑名单 (-100分 硬停止)</option>
-                  </select>
-                </div>
-                <button type="button" class="btn btn-primary" id="btn-calc-score">计算优先级分值与分层</button>
-              </form>
-
-              <div class="score-result-panel">
-                <div class="score-dial">
-                  <div class="score-number" id="result-score">92.5</div>
-                  <div class="score-label">优先级评分</div>
-                  <div class="tier-badge tier-s" id="result-tier">S 级黄金商机</div>
-                </div>
-                <div class="score-detail-box">
-                  <p><strong>跟进建议:</strong> 24小时内由资深业务员 1v1 跟进并抄送销售总监。</p>
-                  <p><strong>归属名单:</strong> 今日必跟, 复购预警, 采购异动</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 5: Inquiries -->
-        <section id="tab-inquiry-qualifier" class="tab-pane">
-          <div class="card">
-            <h2>🔍 询盘 10 步快速诊断与下钻提问</h2>
-            <div class="form-group" style="margin-top:16px;">
-              <label>买家询盘原始内容 (Paste raw inquiry text)</label>
-              <textarea id="raw-inquiry-text" rows="5">Hi, we saw your kitchenware on your catalog. Please send us the best price for 5,000 pcs with custom color box and FOB Ningbo. We need delivery by late October. Do you have FDA test reports?</textarea>
-            </div>
-            <button class="btn btn-primary" id="btn-diagnose-inquiry">开始 10 步诊断与生成回复</button>
-
-            <div id="inquiry-diagnosis-result" style="margin-top:20px; display:none;" class="highlight-box">
-              <!-- Result Injected via JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 6: Tiered Quote -->
-        <section id="tab-tiered-quote" class="tab-pane">
-          <div class="card">
-            <h2>📊 Good / Better / Best 三档阶梯报价生成器</h2>
-            <div class="grid grid-3" style="margin-top:16px;">
-              <div class="form-group">
-                <label>产品名称</label>
-                <input type="text" id="quote-prod" value="Stainless Steel Thermal Mug">
-              </div>
-              <div class="form-group">
-                <label>基准单价 (USD)</label>
-                <input type="number" id="quote-price" value="4.50" step="0.1">
-              </div>
-              <div class="form-group">
-                <label>基准起订量 (MOQ)</label>
-                <input type="number" id="quote-moq" value="1000">
-              </div>
-            </div>
-            <button class="btn btn-primary" id="btn-generate-quote">生成阶梯报价方案</button>
-
-            <div id="quote-matrix-result" style="margin-top:20px; display:none;">
-              <!-- Matrix injected via JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 7: 21 Modules View -->
-        <section id="tab-modules-21" class="tab-pane">
-          <div class="card">
-            <h2>📚 21 个标准知识模块导航 (00–20)</h2>
-            <div class="modules-grid" id="modules-container">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 8: Objections -->
-        <section id="tab-objections" class="tab-pane">
-          <div class="card">
-            <h2>🛡️ 十类高频异议应对与 8 大升级红线</h2>
-            <div class="objections-accordion" id="objections-container">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Tab 9: Cloud Aggregators -->
-        <section id="tab-cloud-aggregators" class="tab-pane">
-          <div class="card">
-            <h2>☁️ Cloud API 聚合工具实战面板 (6 大云连接器)</h2>
-            <p class="lead-text">集成海关提单穿透、OKKI CRM 数据同步、官网事实抽取、采购决策人邮箱验真、关税与海运费估算、实时多币种换算。</p>
-            
-            <div class="aggregator-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
-              <!-- Tool 1: Customs -->
-              <div class="card" style="border:1px solid #e2e8f0;">
-                <h4>🚢 海关提单与真实买家穿透</h4>
-                <p style="font-size:12px; color:#64748b;">自动过滤货代，穿透真实采购商与近180天进口柜量。</p>
-                <div class="form-group" style="margin-top:10px;">
-                  <input type="text" id="agg-customs-kw" placeholder="品类关键词 (如: ceramic tableware)" value="ceramic tableware">
-                </div>
-                <button class="btn btn-outline" id="btn-agg-customs">查询海关买家</button>
-                <div id="res-agg-customs" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
-              </div>
-
-              <!-- Tool 2: Email Verify -->
-              <div class="card" style="border:1px solid #e2e8f0;">
-                <h4>📧 决策人邮箱验真与 C1/C2 分级</h4>
-                <p style="font-size:12px; color:#64748b;">检测 MX 记录、一次性域名与是否决策人实名邮箱。</p>
-                <div class="form-group" style="margin-top:10px;">
-                  <input type="text" id="agg-email-input" placeholder="邮箱 (如: david.chen@pacificgoods.com)" value="david.chen@pacificgoods.com">
-                </div>
-                <button class="btn btn-outline" id="btn-agg-email">验真决策人邮箱</button>
-                <div id="res-agg-email" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
-              </div>
-
-              <!-- Tool 3: Tariff & Freight -->
-              <div class="card" style="border:1px solid #e2e8f0;">
-                <h4>🌐 关税税率与海运费估算</h4>
-                <p style="font-size:12px; color:#64748b;">按目标港口、HS 编码测算关税与 20GP/40HQ 运费。</p>
-                <div class="form-group" style="margin-top:10px;">
-                  <input type="text" id="agg-port-input" placeholder="目的港" value="Los Angeles, USA">
-                </div>
-                <button class="btn btn-outline" id="btn-agg-freight">测算关税与运费</button>
-                <div id="res-agg-freight" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
-              </div>
-
-              <!-- Tool 4: FX Converter -->
-              <div class="card" style="border:1px solid #e2e8f0;">
-                <h4>💱 实时汇率换算与毛利保本</h4>
-                <p style="font-size:12px; color:#64748b;">多币种汇率换算，加入 2% 对冲缓冲与保本底价。</p>
-                <div class="form-group" style="margin-top:10px;">
-                  <input type="number" id="agg-fx-amount" placeholder="金额 (CNY)" value="100000">
-                </div>
-                <button class="btn btn-outline" id="btn-agg-fx">换算为 USD 及保本测算</button>
-                <div id="res-agg-fx" style="margin-top:10px; font-size:12px; display:none; background:#f8fafc; padding:10px; border-radius:6px;"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+  <div class="evidence-rail" aria-label="系统可信状态">
+    <div><span class="rail-index">01</span><small>API</small><strong id="rail-api">未连接</strong></div>
+    <div><span class="rail-index">02</span><small>身份</small><strong id="rail-auth">待验证</strong></div>
+    <div><span class="rail-index">03</span><small>存储</small><strong id="rail-storage">未知</strong></div>
+    <div><span class="rail-index">04</span><small>实时连接器</small><strong id="rail-live">待检查</strong></div>
+    <div><span class="rail-index">05</span><small>公开闸门</small><strong>默认关闭</strong></div>
   </div>
 
-  <script src="app.js"></script>
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="kicker">从证据到下一动作</p>
+        <h1 id="page-title">让 AI 知道什么能说，<br>更知道现在该跟谁。</h1>
+      </div>
+      <p class="intro-copy">21 个企业知识模块、8 类客户实体、可解释的 100 分评分与 8 类动态名单。没有来源就不当事实，没有连接器就不伪装实时。</p>
+    </section>
+
+    <div class="workspace-grid">
+      <section class="module-panel" aria-labelledby="module-title">
+        <div class="section-head">
+          <div><p class="kicker">知识中台</p><h2 id="module-title">00–20 模块航图</h2></div>
+          <span class="status-tag">21 MODULES</span>
+        </div>
+        <ol id="module-list" class="module-list" aria-label="知识库模块"></ol>
+      </section>
+
+      <aside class="control-stack" aria-label="API 连接与操作">
+        <section class="control-panel" aria-labelledby="connect-title">
+          <div class="section-head"><h2 id="connect-title">连接工作台</h2><span id="connect-state" class="status-tag neutral">未连接</span></div>
+          <form id="connect-form">
+            <label for="api-url">Cloud API 地址</label>
+            <input id="api-url" type="url" value="http://localhost:8080" required>
+            <label for="api-key">API Key</label>
+            <input id="api-key" type="password" autocomplete="off" required aria-describedby="key-help">
+            <small id="key-help">只保存在当前浏览器会话，不写入仓库或服务器日志。</small>
+            <button id="connect-button" type="submit">验证并读取能力</button>
+          </form>
+        </section>
+
+        <section class="control-panel" aria-labelledby="cap-title">
+          <div class="section-head"><h2 id="cap-title">能力清单</h2><span class="status-tag neutral">LIVE CHECK</span></div>
+          <ul id="capability-list" class="capability-list"><li>连接 API 后显示真实能力状态。</li></ul>
+        </section>
+
+        <section class="control-panel warning-panel" aria-labelledby="truth-title">
+          <p class="kicker">安全基线</p>
+          <h2 id="truth-title">不模拟“实时事实”</h2>
+          <p>海关、CRM、官网采集、运费关税和汇率没有配置真实提供商时，API 返回 <code>501 capability_unavailable</code>。</p>
+        </section>
+      </aside>
+    </div>
+
+    <section class="action-grid" aria-label="核心操作">
+      <form id="cold-start-form" class="action-panel">
+        <div class="section-head"><div><p class="kicker">阶段 A</p><h2>企业知识冷启动</h2></div><span class="status-tag">EVIDENCE GATE</span></div>
+        <label for="company-name">企业名称</label><input id="company-name" required maxlength="200">
+        <label for="website-url">HTTPS 官网</label><input id="website-url" type="url" required placeholder="https://example.com">
+        <label for="profile-summary">企业简介</label><textarea id="profile-summary" required maxlength="20000" rows="5"></textarea>
+        <button type="submit" disabled data-needs-api>建立 21 模块骨架</button>
+      </form>
+
+      <form id="search-form" class="action-panel">
+        <div class="section-head"><div><p class="kicker">检索</p><h2>租户内知识搜索</h2></div><span class="status-tag neutral">TENANT LOCKED</span></div>
+        <label for="search-query">问题或关键词</label><input id="search-query" required placeholder="例如：欧洲市场认证边界">
+        <button type="submit" disabled data-needs-api>搜索知识卡</button>
+        <div id="search-results" class="results empty">连接 API 后可检索当前 Key 所属企业；界面不允许切换 tenant_id。</div>
+      </form>
+    </section>
+
+    <section class="output-panel" aria-labelledby="output-title">
+      <div class="section-head"><h2 id="output-title">执行回执</h2><button id="clear-output" class="button-secondary" type="button">清空</button></div>
+      <pre id="output" tabindex="0" aria-live="polite">等待操作。所有错误将保留 request_id，便于审计和排查。</pre>
+    </section>
+  </main>
+
+  <footer><span>RenWork AI Export Growth System V4</span><span>事实优先 · 租户隔离 · 人工审批</span></footer>
+  <script src="app.js" defer></script>
 </body>
 </html>
