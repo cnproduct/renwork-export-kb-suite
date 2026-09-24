@@ -8,7 +8,7 @@
 npm run bootstrap:kb -- --tenant acme-export --company "Acme Export Ltd" --out ./data/acme-export
 ```
 
-生成器会创建 00–20 模块、导航、确认队列与 21 张默认 `pending_supplement` 知识卡。生成结果默认位于 `data/`（已被 `.gitignore` 排除），所有内容均未通过公开发布闸门。
+生成器会创建 00–20 模块、导航、确认队列、AI 岗位分工与审批矩阵、分阶段上线验收表，以及 21 张默认 `pending_supplement` 知识卡。生成结果默认位于 `data/`（已被 `.gitignore` 排除），所有内容均未通过公开发布闸门。
 
 ## 数据原则
 
@@ -23,4 +23,5 @@ npm run bootstrap:kb -- --tenant acme-export --company "Acme Export Ltd" --out .
 - `module-catalog.json`：21 个标准模块的机器可读目录。
 - `schemas/knowledge-card.schema.json`：知识卡 V4 Schema。
 - `schemas/customer-graph.schema.json`：八类客户实体 V4 Schema。
+- `schemas/workflow-control.schema.json`：AI/人工执行模式、审批、失败处理与验收指标 Schema。
 - `scripts/bootstrap-kb.mjs`：可重复执行的企业知识库生成器。

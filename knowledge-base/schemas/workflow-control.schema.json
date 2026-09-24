@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrenn.com/schemas/workflow-control.schema.json",
+  "title": "RenWork Workflow Control",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workflow_id",
+    "tenant_id",
+    "name",
+    "department",
+    "execution_mode",
+    "human_owner",
+    "input_source_ids",
+    "output_artifact",
+    "approval_required",
+    "external_write",
+    "red_lines",
+    "failure_action",
+    "acceptance_metrics",
+    "feedback_module",
+    "status",
+    "updated_at"
+  ],
+  "properties": {
+    "workflow_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,79}$"},
+    "tenant_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,79}$"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 200},
+    "department": {"type": "string", "minLength": 1, "maxLength": 100},
+    "execution_mode": {"enum": ["ai_draft", "automated", "human_in_loop", "human_led"]},
+    "human_owner": {"type": "string", "minLength": 1, "maxLength": 200},
+    "input_source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 500}},
+    "output_artifact": {"type": "string", "minLength": 1, "maxLength": 500},
+    "approval_required": {"type": "boolean"},
+    "approval_role": {"type": ["string", "null"], "maxLength": 100},
+    "external_write": {"type": "boolean", "default": false},
+    "red_lines": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 500}},
+    "failure_action": {"enum": ["stop", "human_takeover", "retry_once", "rollback"]},
+    "acceptance_metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "data_source", "target", "observation_window"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1, "maxLength": 100},
+          "data_source": {"type": "string", "minLength": 1, "maxLength": 500},
+          "baseline": {"type": ["string", "number", "null"]},
+          "target": {"type": ["string", "number"]},
+          "observation_window": {"type": "string", "minLength": 1, "maxLength": 100}
+        }
+      }
+    },
+    "feedback_module": {"const": "20_learning_metrics"},
+    "status": {"enum": ["draft", "approved", "pilot", "active", "paused", "retired"]},
+    "approved_by": {"type": ["string", "null"], "maxLength": 200},
+    "approved_at": {"type": ["string", "null"], "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"approval_required": {"const": true}}, "required": ["approval_required"]},
+      "then": {"required": ["approval_role"], "properties": {"approval_role": {"type": "string", "minLength": 1, "maxLength": 100}}}
+    },
+    {
+      "if": {"properties": {"execution_mode": {"const": "human_led"}}, "required": ["execution_mode"]},
+      "then": {"properties": {"approval_required": {"const": true}}}
+    },
+    {
+      "if": {"properties": {"external_write": {"const": true}}, "required": ["external_write"]},
+      "then": {"properties": {"approval_required": {"const": true}}}
+    },
+    {
+      "if": {"properties": {"status": {"enum": ["approved", "active"]}}, "required": ["status"]},
+      "then": {"required": ["approved_by", "approved_at"], "properties": {"approved_by": {"type": "string", "minLength": 1, "maxLength": 200}, "approved_at": {"type": "string", "format": "date-time"}}}
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 
 | 层 | 交付 |
 |---|---|
-| Knowledge Base | 00–20 模块目录、知识卡 Schema、八类客户实体 Schema、可重复生成器 |
+| Knowledge Base | 00–20 模块目录、知识卡/客户实体/工作流控制 Schema、可重复生成器 |
 | Skills | 5 个专项 Skill + 1 个 V4 总控 Skill，企业事实不硬编码进 Skill |
 | MCP | 16 个 stdio 工具，`RENWORK_TENANT_ID` 启动时固定，模型不能切换租户 |
 | RenWork/OpenCode Plugin | 4 个 Cloud API 工具，API Key 只从环境变量读取 |
@@ -61,7 +61,7 @@ npm run bootstrap:kb -- \
   --out data/acme-export
 ```
 
-结果包含 21 个模块，全部处于待补充/待核验状态，不会把模板冒充企业事实。
+结果包含 21 个模块、AI 岗位分工与审批矩阵、分阶段上线验收表，全部处于待补充/待核验状态，不会把模板冒充企业事实。
 
 ## Cloud API
 
@@ -137,6 +137,7 @@ docker build -t renwork-export-growth:local .
 - `docs/ARCHITECTURE.md`：架构、安全和生产化边界
 - `docs/API_SPEC.md`：API 与错误合同
 - `knowledge-base/README.md`：知识库生成与数据规范
+- `docs/AI_AGENT_OPERATING_MODEL.md`：四类人机分工、统一业务闭环与分阶段上线闸门
 - `DESIGN.md`：Portal 设计系统与无障碍标准
 - OpenWork 概念参考：`start-here/do-work-with-it/skills-plugins-and-mcp.mdx`、`start-here/connect-your-stack/add-an-mcp-server.mdx`
 
