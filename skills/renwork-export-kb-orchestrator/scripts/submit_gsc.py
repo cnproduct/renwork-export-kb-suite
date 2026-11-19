@@ -175,7 +175,7 @@ def main():
             report["gsc_submissions"]["api_error"] = str(err)
             
     # 2. Ego-Browser Web UI Mode
-    elif args.ego-browser:
+    elif args.ego_browser:
         print(f"\n🔹 [Ego-Browser UI] Automating GSC submission via {args.profile}...")
         browser_res = run_ego_browser_submission(site, sitemap_urls, profile=args.profile)
         report["gsc_submissions"].update(browser_res["sitemaps"])
