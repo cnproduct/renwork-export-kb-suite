@@ -118,3 +118,41 @@ description: 外贸出口企业 AI 知识库冷启动与 00–20 模块全量构
 - `human_led`：谈判签约、付款、账期/底价/独家、赔付、法律合规、用工等由人判断和执行。
 
 上线顺序固定为知识库底座 → 一个业务工作流 → 运营数据 → 管理决策。每个阶段在 `分阶段上线验收.md` 中记录基线、目标、数据来源、观察窗口、负责人和证据；未运行时写 `NOT_RUN`，不得把培训材料中的目标值或案例收益当成当前企业结果。
+
+---
+
+## 7. 新生成网页自动提交 Google Search Console 与全网索引流水线 (V3.1)
+
+每次知识库自动化建站/发布新页面（包括产品独立详情页、落地页、工程合规指南、业务岗位视图及 MA-DPP 数字产品护照）并更新 sitemap 后，**必须**执行全网搜索引擎提交流水线，确保新页面在 Google、Bing、Yandex、Naver 极速收录：
+
+### 执行脚本与调用语法
+
+```bash
+# 模式 A: 自动化浏览器 Web UI 提交（免配置 GCP 服务账号，直接复用已登录的 GSC Profile）
+python3 skills/renwork-export-kb-orchestrator/scripts/submit_gsc.py \
+  --site https://www.yourdomain.com \
+  --sitemap-dir site/dist \
+  --ego-browser --profile "Profile 7" \
+  --indexnow-key <YOUR_32_HEX_INDEXNOW_KEY>
+
+# 模式 B: Google Cloud 官方 Service Account API + IndexNow
+python3 skills/renwork-export-kb-orchestrator/scripts/submit_gsc.py \
+  --site https://www.yourdomain.com \
+  --sitemap-dir site/dist \
+  --creds service_account.json \
+  --indexnow-key <YOUR_32_HEX_INDEXNOW_KEY>
+```
+
+### 流水线三大核心环节
+
+1. **Google Search Console 实时 Sitemap 投递与刷新 (`sitemaps.submit`)**：
+   - 自动提交 `sitemap.xml`（全量总索引）、`sitemap-index.xml` 以及所有分卷（`sitemap-pages.xml`、`sitemap-products.xml`、`sitemap-dpp.xml`）。
+   - 自动处理 Google 提交后弹出的确认弹窗与状态轮询，保证最新 Discovered Pages 数量与服务器实时页面量对齐。
+2. **重点新增页面 URL Inspection & 优先级索引队列登记**：
+   - 对核心新增落地页（如无中柱全陶瓷落地页、防堵流体指南、战术翻盖电池页、双雷达仪表盘）自动调用 URL Inspection 工具；
+   - 触发 `REQUEST INDEXING` 请求，将 URL 加入 Google 爬虫 Priority Crawl Queue。若触发人机验证 challenge，严格遵守安全准则不强行绕过，并在审计报告中明确记录。
+3. **IndexNow 跨引擎极速批量直推送**：
+   - 一键将所有最新 sitemap 包含的 URL 批量打包成 JSON Payload，向 `https://api.indexnow.org/indexnow` 发起权威推送；
+   - 5 分钟内同步至 Bing、Yandex、Naver 及所有集成 IndexNow 协议的搜索引擎网络。
+4. **生成结构化交付报告**：
+   - 在部署目录下输出 `gsc_submission_report.json`，完整记录提交时间戳、Sitemap 状态、Discovered Pages 总量及 IndexNow HTTP 响应状态码。
