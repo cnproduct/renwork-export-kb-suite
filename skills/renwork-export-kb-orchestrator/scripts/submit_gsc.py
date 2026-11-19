@@ -26,6 +26,7 @@ import re
 import subprocess
 import sys
 import urllib.request
+import urllib.parse
 from datetime import datetime, timezone
 
 def urls_from_sitemaps(sitemap_dir):
@@ -189,10 +190,12 @@ def main():
     if args.indexnow_key:
         print(f"\n🔹 [IndexNow Push] Pushing {len(all_urls)} URLs to IndexNow engine...")
         try:
+            parsed_host = urllib.parse.urlparse(all_urls[0] if all_urls else site).netloc or domain
+            key_location = f"https://{parsed_host}/{args.indexnow_key}.txt"
             payload = json.dumps({
-                "host": domain,
+                "host": parsed_host,
                 "key": args.indexnow_key,
-                "keyLocation": f"{site}/{args.indexnow_key}.txt",
+                "keyLocation": key_location,
                 "urlList": all_urls[:10000]
             }).encode("utf-8")
             
